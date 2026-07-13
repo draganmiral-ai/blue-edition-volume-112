@@ -4,7 +4,7 @@ A quiet, single-page digital editorial photo book of five photographs by
 Dragan Andric. No galleries, no accounts, no forms — one calm scroll through
 five plates and a closing colophon.
 
-**Live site:** _added after first deploy — see "Deployment" below_
+**Live site:** https://draganmiral-ai.github.io/blue-edition-volume-112/
 
 ## Concept
 
