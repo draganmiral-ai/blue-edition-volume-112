@@ -186,4 +186,47 @@
       revealObserver.observe(target);
     });
   }
+
+  // Oversized masthead words (MAROON, BLUE) are sized with CSS clamp(), but
+  // actual glyph width varies by which font in the stack a given device
+  // resolves (e.g. iOS renders the real Didot, wider than desktop fallbacks).
+  // Measure the rendered word against its available box and shrink in small
+  // steps until it fits, so the masthead can never clip on any device.
+  function fitMastheadWord(el) {
+    if (!el) return;
+    el.style.fontSize = '';
+    var size = parseFloat(window.getComputedStyle(el).fontSize);
+    if (!size) return;
+    var minSize = size * 0.72;
+    var guard = 40;
+    while (el.scrollWidth > el.clientWidth + 1 && size > minSize && guard-- > 0) {
+      size -= 1;
+      el.style.fontSize = size + 'px';
+    }
+  }
+
+  var mastheadWords = Array.prototype.slice.call(
+    document.querySelectorAll('.m-cover__word, .cover__word')
+  );
+
+  function fitAllMastheads() {
+    mastheadWords.forEach(fitMastheadWord);
+  }
+
+  fitAllMastheads();
+
+  var resizeTicking = false;
+  window.addEventListener(
+    'resize',
+    function () {
+      if (!resizeTicking) {
+        window.requestAnimationFrame(function () {
+          fitAllMastheads();
+          resizeTicking = false;
+        });
+        resizeTicking = true;
+      }
+    },
+    { passive: true }
+  );
 })();
