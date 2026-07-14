@@ -16,8 +16,23 @@
   --yellow: #b98a24;
   --ink: #14181c;
 
+  /* Maroon Edition — sampled from its own photographs, kept isolated from the Blue palette above */
+  --m-cream: #ece2d4;
+  --m-cream-bright: #f5ecdf;
+  --m-maroon: #6e1b1f;
+  --m-burgundy: #5c2a30;
+  --m-oxblood: #350f13;
+  --m-wine: #8a2530;
+  --m-charcoal: #211d1a;
+  --m-stone: #8f8579;
+  --m-stone-dark: #46413c;
+  --m-gold: #a8823a;
+  --m-yellow-accent: #c9930f;
+  --m-green: #34432f;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
+  --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue',
     Arial, sans-serif;
 
@@ -224,7 +239,8 @@ button:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cover__word {
+  .cover__word,
+  .m-cover__word {
     animation: none;
     opacity: 1;
     filter: none;
@@ -528,8 +544,460 @@ button:focus-visible {
 /* ================= responsive scale-up for larger screens ================= */
 
 @media (min-width: 1600px) {
-  .plate {
+  .plate,
+  .m-spread {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
+  }
+}
+
+/* =====================================================================
+   MAROON EDITION / VOLUME 112 — fashion-editorial system, isolated from
+   the Blue Edition rules above via the m- prefix on every class/variable.
+   ===================================================================== */
+
+/* ---------- edition index (fixed corner nav, spans both editions) ---------- */
+
+.edition-index {
+  position: fixed;
+  top: clamp(0.85rem, 3vw, 1.5rem);
+  right: clamp(0.85rem, 3vw, 1.5rem);
+  z-index: 70;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.3rem;
+  padding: 0.55rem 0.7rem;
+  background: rgba(15, 13, 12, 0.4);
+  backdrop-filter: blur(6px);
+}
+
+.edition-index__link {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4em;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: rgba(245, 242, 236, 0.55);
+  padding: 0.2rem 0.15rem;
+  border-bottom: 1px solid transparent;
+  transition: color var(--dur-medium) var(--ease-editorial),
+    border-color var(--dur-medium) var(--ease-editorial);
+}
+
+.edition-index__link:hover {
+  color: var(--ivory-bright);
+}
+
+.edition-index__link[aria-current='true'] {
+  color: var(--ivory-bright);
+  border-bottom-color: currentColor;
+  font-weight: 600;
+}
+
+.edition-index__num {
+  opacity: 0.7;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .edition-index__link {
+    transition: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .edition-index {
+    flex-direction: row;
+    gap: 0.65rem;
+    padding: 0.4rem 0.6rem;
+  }
+  .edition-index__link {
+    font-size: 0.6rem;
+    letter-spacing: 0.14em;
+  }
+}
+
+/* ---------- Maroon masthead cover ---------- */
+
+.m-cover {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--m-charcoal);
+}
+
+.m-cover__image {
+  position: absolute;
+  inset: 0;
+}
+
+.m-cover__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 58% 42%;
+}
+
+.m-cover__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(20, 15, 13, 0.8) 0%,
+    rgba(20, 15, 13, 0.35) 30%,
+    rgba(20, 15, 13, 0) 52%
+  );
+  pointer-events: none;
+}
+
+.m-cover__fragment {
+  position: absolute;
+  top: -8vw;
+  left: -5vw;
+  z-index: 1;
+  font-family: var(--m-font-serif);
+  font-weight: 500;
+  font-size: clamp(16rem, 62vw, 46rem);
+  line-height: 1;
+  color: rgba(245, 236, 223, 0.08);
+  user-select: none;
+  pointer-events: none;
+}
+
+.m-cover__masthead {
+  position: relative;
+  z-index: 2;
+  padding: env(safe-area-inset-top) clamp(1.25rem, 6vw, 3.5rem) 0;
+  padding-top: clamp(2.5rem, 9vh, 4.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.35rem, 1vw, 0.7rem);
+}
+
+.m-cover__word {
+  margin: 0;
+  font-family: var(--m-font-serif);
+  font-weight: 500;
+  font-size: clamp(3.5rem, 15vw, 8.5rem);
+  letter-spacing: 0.01em;
+  line-height: 0.95;
+  color: var(--m-cream-bright);
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  opacity: 0;
+  filter: blur(6px);
+  animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
+}
+
+.m-cover__meta {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.68rem, 1.3vw, 0.85rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--m-gold);
+}
+
+/* ---------- shared Maroon spread scaffolding ---------- */
+
+.m-spread {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 6vw, 4rem);
+  gap: clamp(1.5rem, 4vh, 3rem);
+}
+
+.m-spread__figure,
+.m-finale__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.m-spread__figure img,
+.m-finale__figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+.m-folio {
+  position: absolute;
+  bottom: clamp(1rem, 3vh, 1.75rem);
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+}
+
+/* progressive-enhancement reveal: content is fully visible without JS or
+   with reduced motion; only .js-reveal-armed (set by main.js) hides it
+   first so it can be revealed on scroll */
+.js-reveal-armed .m-spread__figure,
+.js-reveal-armed .m-finale__figure,
+.js-reveal-armed .m-transition {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
+}
+
+.js-reveal-armed .m-transition {
+  transform: none;
+}
+
+.js-reveal-armed .m-spread__figure.is-revealed,
+.js-reveal-armed .m-finale__figure.is-revealed,
+.js-reveal-armed .m-transition.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Spread 01 — light object : bold single-image interruption ---- */
+
+.m-spread--light {
+  background: var(--m-charcoal);
+}
+
+.m-spread--light .m-spread__figure img {
+  max-height: calc(100svh - 8rem);
+  width: auto;
+  object-fit: contain;
+}
+
+.m-spread--light .m-folio {
+  left: clamp(1.25rem, 6vw, 4rem);
+  color: var(--m-yellow-accent);
+}
+
+/* ---- Spread 02 — movement : asymmetric two-image spread ---- */
+
+.m-spread--movement {
+  background: var(--m-cream);
+  color: var(--m-charcoal);
+  flex-direction: row;
+}
+
+.m-spread--movement .m-spread__figure--a {
+  align-self: flex-start;
+}
+
+.m-spread--movement .m-spread__figure--b {
+  align-self: flex-end;
+  margin-top: clamp(2rem, 8vh, 5rem);
+}
+
+.m-spread--movement .m-spread__figure--a img {
+  max-height: 70vh;
+  width: auto;
+}
+
+.m-spread--movement .m-spread__figure--b img {
+  max-height: 46vh;
+  width: auto;
+}
+
+.m-spread--movement .m-folio {
+  right: clamp(1.25rem, 6vw, 4rem);
+  color: var(--m-maroon);
+}
+
+@media (max-width: 640px) {
+  .m-spread--movement {
+    flex-direction: column;
+  }
+  .m-spread--movement .m-spread__figure--a,
+  .m-spread--movement .m-spread__figure--b {
+    align-self: center;
+    margin-top: 0;
+  }
+  .m-spread--movement .m-spread__figure--a img {
+    max-height: 44vh;
+  }
+  .m-spread--movement .m-spread__figure--b img {
+    max-height: 36vh;
+  }
+}
+
+/* ---- Spread 03 — details : jewellery & accessories on a maroon field ---- */
+
+.m-spread--details {
+  background: var(--m-maroon);
+  color: var(--m-cream-bright);
+  flex-direction: row;
+}
+
+.m-spread--details .m-spread__figure--a {
+  align-self: flex-end;
+}
+
+.m-spread--details .m-spread__figure--b {
+  align-self: flex-start;
+  margin-top: clamp(1.5rem, 6vh, 3.5rem);
+}
+
+.m-spread--details .m-spread__figure--a img {
+  max-height: 50vh;
+  width: auto;
+}
+
+.m-spread--details .m-spread__figure--b img {
+  max-height: 64vh;
+  width: auto;
+  box-shadow: 0 2rem 6rem -1.5rem rgba(0, 0, 0, 0.55);
+}
+
+.m-spread--details .m-folio {
+  left: clamp(1.25rem, 6vw, 4rem);
+  color: var(--m-cream-bright);
+}
+
+@media (max-width: 640px) {
+  .m-spread--details {
+    flex-direction: column;
+  }
+  .m-spread--details .m-spread__figure--a,
+  .m-spread--details .m-spread__figure--b {
+    align-self: center;
+    margin-top: 0;
+  }
+  .m-spread--details .m-spread__figure--a img {
+    max-height: 36vh;
+  }
+  .m-spread--details .m-spread__figure--b img {
+    max-height: 44vh;
+  }
+}
+
+/* ---- Spread 04 — private object : quiet single moment on cream ---- */
+
+.m-spread--private {
+  background: var(--m-cream);
+  color: var(--m-charcoal);
+}
+
+.m-spread--private .m-spread__figure img {
+  max-height: 58vh;
+  width: auto;
+}
+
+.m-spread--private .m-folio {
+  right: clamp(1.25rem, 6vw, 4rem);
+  color: var(--m-burgundy);
+}
+
+/* ---- Spread 05 — light & stillness : calmest, warmest pairing ---- */
+
+.m-spread--stillness {
+  background: var(--m-cream);
+  color: var(--m-charcoal);
+  flex-direction: row;
+}
+
+.m-spread--stillness .m-spread__figure--a {
+  align-self: center;
+}
+
+.m-spread--stillness .m-spread__figure--b {
+  align-self: flex-end;
+  margin-top: clamp(3rem, 10vh, 6rem);
+}
+
+.m-spread--stillness .m-spread__figure--a img {
+  max-height: 74vh;
+  width: auto;
+}
+
+.m-spread--stillness .m-spread__figure--b img {
+  max-height: 40vh;
+  width: auto;
+}
+
+.m-spread--stillness .m-folio {
+  left: clamp(1.25rem, 6vw, 4rem);
+  color: var(--m-burgundy);
+}
+
+@media (max-width: 640px) {
+  .m-spread--stillness {
+    flex-direction: column;
+  }
+  .m-spread--stillness .m-spread__figure--a,
+  .m-spread--stillness .m-spread__figure--b {
+    align-self: center;
+    margin-top: 0;
+  }
+  .m-spread--stillness .m-spread__figure--a img {
+    max-height: 48vh;
+  }
+  .m-spread--stillness .m-spread__figure--b img {
+    max-height: 34vh;
+  }
+}
+
+/* ---- Finale — wordless, no folio, no caption, significant presence ---- */
+
+.m-finale {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--m-charcoal);
+  padding: clamp(2rem, 6vh, 4rem) clamp(1rem, 5vw, 3rem);
+}
+
+.m-finale__figure img {
+  max-height: calc(100svh - 4rem);
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---- Maroon → Blue transition : colour handover, no copy, no button ---- */
+
+.m-transition {
+  position: relative;
+  height: clamp(28vh, 40vh, 46vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--m-cream) 0%,
+    var(--m-maroon) 22%,
+    var(--m-burgundy) 42%,
+    var(--m-green) 58%,
+    var(--m-charcoal) 74%,
+    var(--midnight) 88%,
+    var(--near-black) 100%
+  );
+}
+
+.m-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 500;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.16;
+  user-select: none;
+}
+
+.m-transition__letter--m {
+  top: 4%;
+  font-family: var(--m-font-serif);
+  color: var(--m-cream-bright);
+}
+
+.m-transition__letter--b {
+  bottom: 4%;
+  font-family: var(--font-serif);
+  color: var(--ivory-bright);
+}
+
+@media (max-width: 640px) {
+  .m-transition {
+    height: clamp(22vh, 32vh, 36vh);
   }
 }

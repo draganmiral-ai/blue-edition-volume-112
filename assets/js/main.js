@@ -5,13 +5,18 @@
   var progressBar = document.getElementById('progressBar');
   var returnBtn = document.getElementById('returnCover');
   var yearEl = document.getElementById('year');
-  var sections = Array.prototype.slice.call(document.querySelectorAll('.cover, .plate, .colophon'));
+  var sections = Array.prototype.slice.call(
+    document.querySelectorAll('.m-cover, .m-spread, .m-finale, .cover, .plate, .colophon')
+  );
 
   if (yearEl) {
     yearEl.textContent = String(new Date().getFullYear());
   }
 
   var ticking = false;
+  var blueCover = document.getElementById('cover');
+  var editionLinkMaroon = document.getElementById('editionLinkMaroon');
+  var editionLinkBlue = document.getElementById('editionLinkBlue');
 
   function updateOnScroll() {
     var doc = document.documentElement;
@@ -29,6 +34,14 @@
       } else {
         returnBtn.classList.remove('is-visible');
       }
+    }
+
+    if (blueCover && editionLinkMaroon && editionLinkBlue) {
+      var blueActive = blueCover.getBoundingClientRect().top <= window.innerHeight * 0.5;
+      var active = blueActive ? editionLinkBlue : editionLinkMaroon;
+      var inactive = blueActive ? editionLinkMaroon : editionLinkBlue;
+      active.setAttribute('aria-current', 'true');
+      inactive.removeAttribute('aria-current');
     }
 
     ticking = false;
@@ -130,5 +143,47 @@
     }
 
     window.requestAnimationFrame(updateParallax);
+  }
+
+  // Edition index click handling: smooth-scroll to the target edition's
+  // cover instead of relying on a native anchor jump (consistent with the
+  // return-to-top button above). Active-state tracking lives in
+  // updateOnScroll, keyed off the same scroll loop.
+  [editionLinkMaroon, editionLinkBlue].forEach(function (link) {
+    if (!link) return;
+    link.addEventListener('click', function (event) {
+      var targetId = link.getAttribute('href');
+      var target = targetId && document.querySelector(targetId);
+      if (!target) return;
+      event.preventDefault();
+      target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    });
+  });
+
+  // Maroon Edition: gentle reveal-on-scroll for spread images and the
+  // transition band. Progressive enhancement only — everything is fully
+  // visible by default; this merely arms a hidden-until-revealed state.
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    document.documentElement.classList.add('js-reveal-armed');
+
+    var revealTargets = Array.prototype.slice.call(
+      document.querySelectorAll('.m-spread__figure, .m-finale__figure, .m-transition')
+    );
+
+    var revealObserver = new IntersectionObserver(
+      function (entries, observer) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-revealed');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealTargets.forEach(function (target) {
+      revealObserver.observe(target);
+    });
   }
 })();
