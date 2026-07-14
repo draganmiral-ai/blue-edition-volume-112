@@ -10,11 +10,17 @@ accounts, no forms — one calm scroll through both.
 
 **Maroon Edition / Volume 112** opens the site: a fashion-magazine-inspired
 editorial study in maroon, burgundy, oxblood, cream, and gold, moving through
-personal objects, jewellery, movement, and private spaces before closing on
-a single wordless photograph. The visitor then scrolls through a quiet
-colour-handover transition into **Blue Edition / Volume 112**, a photo-book
-paced study in navy, cobalt, ivory, and concrete across five plates and a
-closing colophon.
+personal objects, jewellery, movement, and private spaces, pausing on a
+dedicated Persian-inspired prayer interlude, then closing on a single
+wordless photograph. The visitor then scrolls through a quiet colour-handover
+transition into **Blue Edition / Volume 112**, a photo-book paced study in
+navy, cobalt, ivory, and concrete across five plates and a closing colophon.
+
+Maroon is paced deliberately unevenly on purpose: bold single-image
+interruptions, energetic asymmetric spreads, a hushed single-image pause, and
+the prayer interlude all sit at different scales and negative-space
+proportions so the edition reads as a gradual descent from bold magazine
+cover into quiet, contemplative close — rather than a uniform slideshow.
 
 The two editions are deliberately distinct in feel — Maroon is tactile,
 layered, and magazine-led; Blue is spacious, architectural, and restrained —
@@ -68,7 +74,8 @@ There is no build step — `index.html` is the deployable site as-is.
   - Maroon: `maroon-cover-ibrahim`, `maroon-light-object`,
     `maroon-walk-overhead`, `maroon-walk-motion`, `maroon-ring-detail`,
     `maroon-portfolio`, `maroon-bag-cabinet`, `maroon-shoes-sunlight`,
-    `maroon-shoes-plants`, `maroon-slytherin-finale`
+    `maroon-shoes-plants`, `maroon-prayer-interlude`,
+    `maroon-slytherin-finale`
   - Blue: `01-industrial-corridor` … `05-the-fountains`
 - `assets/images/web/` — optimized derivatives used by the page, each as a
   `-large` (native resolution) and `-small` (720px, for narrow viewports)
@@ -84,10 +91,11 @@ There is no build step — `index.html` is the deployable site as-is.
    - Blue: each of the five `<section class="plate plate--0N">` blocks is
      independent — reorder by moving the whole `<section>` and updating its
      `01`–`05` folio marker.
-   - Maroon: each `<section class="m-spread m-spread--*">` (plus the
-     wordless `<section class="m-finale">`) is independent — reorder the
-     same way, updating the `m-folio` marker. The finale section must keep
-     no folio, no caption, and no overlaid text by design.
+   - Maroon: each `<section class="m-spread m-spread--*">` is independent —
+     reorder by moving the whole `<section>` and updating its `m-folio`
+     marker. The prayer `<section class="m-interlude">` and the wordless
+     `<section class="m-finale">` must keep no folio, no heading, no
+     caption, and no overlaid text by design.
 4. Update the `alt` text to accurately describe the new image.
 
 ### Adding a future colour edition

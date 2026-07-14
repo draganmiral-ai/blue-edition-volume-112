@@ -6,7 +6,7 @@
   var returnBtn = document.getElementById('returnCover');
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover, .m-spread, .m-finale, .cover, .plate, .colophon')
+    document.querySelectorAll('.m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon')
   );
 
   if (yearEl) {
@@ -167,7 +167,7 @@
     document.documentElement.classList.add('js-reveal-armed');
 
     var revealTargets = Array.prototype.slice.call(
-      document.querySelectorAll('.m-spread__figure, .m-finale__figure, .m-transition')
+      document.querySelectorAll('.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition')
     );
 
     var revealObserver = new IntersectionObserver(

@@ -646,9 +646,9 @@ button:focus-visible {
   inset: 0;
   background: linear-gradient(
     to bottom,
-    rgba(20, 15, 13, 0.8) 0%,
-    rgba(20, 15, 13, 0.35) 30%,
-    rgba(20, 15, 13, 0) 52%
+    rgba(20, 15, 13, 0.82) 0%,
+    rgba(20, 15, 13, 0.4) 38%,
+    rgba(20, 15, 13, 0) 64%
   );
   pointer-events: none;
 }
@@ -681,11 +681,11 @@ button:focus-visible {
   margin: 0;
   font-family: var(--m-font-serif);
   font-weight: 500;
-  font-size: clamp(3.5rem, 15vw, 8.5rem);
-  letter-spacing: 0.01em;
-  line-height: 0.95;
+  font-size: clamp(4.75rem, 21vw, 14rem);
+  letter-spacing: 0.005em;
+  line-height: 0.9;
   color: var(--m-cream-bright);
-  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.35);
+  text-shadow: 0 4px 40px rgba(0, 0, 0, 0.45);
   opacity: 0;
   filter: blur(6px);
   animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
@@ -694,8 +694,8 @@ button:focus-visible {
 .m-cover__meta {
   margin: 0;
   font-family: var(--font-sans);
-  font-size: clamp(0.68rem, 1.3vw, 0.85rem);
-  letter-spacing: 0.32em;
+  font-size: clamp(0.75rem, 1.5vw, 1rem);
+  letter-spacing: 0.36em;
   text-transform: uppercase;
   color: var(--m-gold);
 }
@@ -730,14 +730,16 @@ button:focus-visible {
   position: absolute;
   bottom: clamp(1rem, 3vh, 1.75rem);
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.3em;
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  opacity: 0.55;
 }
 
 /* progressive-enhancement reveal: content is fully visible without JS or
    with reduced motion; only .js-reveal-armed (set by main.js) hides it
    first so it can be revealed on scroll */
 .js-reveal-armed .m-spread__figure,
+.js-reveal-armed .m-interlude__figure,
 .js-reveal-armed .m-finale__figure,
 .js-reveal-armed .m-transition {
   opacity: 0;
@@ -750,6 +752,7 @@ button:focus-visible {
 }
 
 .js-reveal-armed .m-spread__figure.is-revealed,
+.js-reveal-armed .m-interlude__figure.is-revealed,
 .js-reveal-armed .m-finale__figure.is-revealed,
 .js-reveal-armed .m-transition.is-revealed {
   opacity: 1;
@@ -760,10 +763,12 @@ button:focus-visible {
 
 .m-spread--light {
   background: var(--m-charcoal);
+  padding-top: clamp(1.5rem, 4vh, 3rem);
+  padding-bottom: clamp(1.5rem, 4vh, 3rem);
 }
 
 .m-spread--light .m-spread__figure img {
-  max-height: calc(100svh - 8rem);
+  max-height: calc(100svh - 4rem);
   width: auto;
   object-fit: contain;
 }
@@ -791,12 +796,12 @@ button:focus-visible {
 }
 
 .m-spread--movement .m-spread__figure--a img {
-  max-height: 70vh;
+  max-height: 78vh;
   width: auto;
 }
 
 .m-spread--movement .m-spread__figure--b img {
-  max-height: 46vh;
+  max-height: 50vh;
   width: auto;
 }
 
@@ -840,12 +845,12 @@ button:focus-visible {
 }
 
 .m-spread--details .m-spread__figure--a img {
-  max-height: 50vh;
+  max-height: 54vh;
   width: auto;
 }
 
 .m-spread--details .m-spread__figure--b img {
-  max-height: 64vh;
+  max-height: 70vh;
   width: auto;
   box-shadow: 0 2rem 6rem -1.5rem rgba(0, 0, 0, 0.55);
 }
@@ -877,10 +882,12 @@ button:focus-visible {
 .m-spread--private {
   background: var(--m-cream);
   color: var(--m-charcoal);
+  padding-top: clamp(5rem, 16vh, 9rem);
+  padding-bottom: clamp(5rem, 16vh, 9rem);
 }
 
 .m-spread--private .m-spread__figure img {
-  max-height: 58vh;
+  max-height: 42vh;
   width: auto;
 }
 
@@ -907,7 +914,7 @@ button:focus-visible {
 }
 
 .m-spread--stillness .m-spread__figure--a img {
-  max-height: 74vh;
+  max-height: 80vh;
   width: auto;
 }
 
@@ -938,6 +945,39 @@ button:focus-visible {
   }
 }
 
+/* ---- Interlude — prayer artwork : a dedicated emotional pause, wordless page ---- */
+
+.m-interlude {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--m-oxblood);
+  padding: clamp(3rem, 9vh, 5.5rem) clamp(1.5rem, 6vw, 4rem);
+}
+
+.m-interlude__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.m-interlude__figure img {
+  max-height: calc(100svh - 6rem);
+  width: auto;
+  object-fit: contain;
+  box-shadow: 0 3rem 8rem -2rem rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 640px) {
+  .m-interlude {
+    padding: clamp(1.75rem, 6vh, 3rem) clamp(1rem, 5vw, 2rem);
+  }
+  .m-interlude__figure img {
+    max-height: calc(100svh - 3.5rem);
+  }
+}
+
 /* ---- Finale — wordless, no folio, no caption, significant presence ---- */
 
 .m-finale {
@@ -946,11 +986,11 @@ button:focus-visible {
   align-items: center;
   justify-content: center;
   background: var(--m-charcoal);
-  padding: clamp(2rem, 6vh, 4rem) clamp(1rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 4vh, 2.5rem) clamp(1rem, 5vw, 3rem);
 }
 
 .m-finale__figure img {
-  max-height: calc(100svh - 4rem);
+  max-height: calc(100svh - 2.5rem);
   width: auto;
   object-fit: contain;
 }
@@ -959,16 +999,18 @@ button:focus-visible {
 
 .m-transition {
   position: relative;
-  height: clamp(28vh, 40vh, 46vh);
+  height: clamp(34vh, 50vh, 60vh);
   overflow: hidden;
   background: linear-gradient(
     to bottom,
     var(--m-cream) 0%,
-    var(--m-maroon) 22%,
-    var(--m-burgundy) 42%,
-    var(--m-green) 58%,
-    var(--m-charcoal) 74%,
-    var(--midnight) 88%,
+    var(--m-maroon) 17%,
+    var(--m-burgundy) 32%,
+    var(--m-oxblood) 44%,
+    var(--m-green) 55%,
+    var(--m-charcoal) 66%,
+    var(--midnight-deep) 78%,
+    var(--midnight) 90%,
     var(--near-black) 100%
   );
 }
@@ -980,24 +1022,41 @@ button:focus-visible {
   font-weight: 500;
   line-height: 1;
   font-size: clamp(6rem, 22vw, 14rem);
-  opacity: 0.16;
+  opacity: 0.12;
   user-select: none;
 }
 
 .m-transition__letter--m {
-  top: 4%;
+  top: 3%;
   font-family: var(--m-font-serif);
   color: var(--m-cream-bright);
 }
 
 .m-transition__letter--b {
-  bottom: 4%;
+  bottom: 3%;
   font-family: var(--font-serif);
   color: var(--ivory-bright);
 }
 
+.m-transition__rule {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 420px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--m-gold) 18%,
+    var(--cobalt-bright) 82%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
 @media (max-width: 640px) {
   .m-transition {
-    height: clamp(22vh, 32vh, 36vh);
+    height: clamp(26vh, 38vh, 42vh);
   }
 }
