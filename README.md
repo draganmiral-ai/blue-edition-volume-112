@@ -1,38 +1,64 @@
-# Maroon & Blue Edition / Volume 112
+# Emerald, Maroon & Blue / Volume 112
 
 A quiet, single continuous-scroll digital editorial site by Dragan Andric,
-containing two colour-themed editions back to back. No galleries, no
-accounts, no forms — one calm scroll through both.
+containing three colour-themed editions back to back. No galleries, no
+accounts, no forms — one calm scroll through all three.
 
 **Live site:** https://draganmiral-ai.github.io/blue-edition-volume-112/
 
 ## Concept
 
-**Maroon Edition / Volume 112** opens the site: a fashion-magazine-inspired
+**Emerald Edition / Volume 112** opens the site: a cinematic visual essay
+about preserving an inner centre while ordinary life moves, blurs, and
+accelerates around it. Rain, motion blur, reflective metal, and city light
+carry the visitor through external movement, while six short reflective
+fragments — never explaining themselves — mark the moments where the
+external noise gives way to something steadier. It closes on a single
+wordless walking photograph, then a quiet colour-handover transition carries
+the visitor into **Maroon Edition / Volume 112**: a fashion-magazine-inspired
 editorial study in maroon, burgundy, oxblood, cream, and gold, moving through
 personal objects, jewellery, movement, and private spaces, pausing on a
-dedicated Persian-inspired prayer interlude, then closing on a single
-wordless photograph. The visitor then scrolls through a quiet colour-handover
-transition into **Blue Edition / Volume 112**, a photo-book paced study in
-navy, cobalt, ivory, and concrete across five plates and a closing colophon.
+dedicated Persian-inspired prayer interlude, then closing on its own single
+wordless photograph. A second transition carries the visitor into **Blue
+Edition / Volume 112**, a photo-book paced study in navy, cobalt, ivory, and
+concrete across five plates and a closing colophon.
 
-Maroon is paced deliberately unevenly on purpose: bold single-image
-interruptions, energetic asymmetric spreads, a hushed single-image pause, and
-the prayer interlude all sit at different scales and negative-space
-proportions so the edition reads as a gradual descent from bold magazine
-cover into quiet, contemplative close — rather than a uniform slideshow.
-
-The two editions are deliberately distinct in feel — Maroon is tactile,
-layered, and magazine-led; Blue is spacious, architectural, and restrained —
-but share the same craftsmanship, typographic discipline, and editorial
-restraint. Maroon uses its own isolated `m-`-prefixed CSS namespace and
-colour variables so it can never regress Blue's existing design.
+Each edition is deliberately distinct in feel — Emerald is dark, kinetic, and
+literary; Maroon is tactile, layered, and magazine-led; Blue is spacious,
+architectural, and restrained — but all three share the same craftsmanship,
+typographic discipline, and editorial restraint. Emerald and Maroon each use
+their own isolated CSS namespace and colour variables (`e-`/`--e-*` and
+`m-`/`--m-*` respectively) so neither can regress the others' design.
 
 All visible text on the site is either the approved title/credit for each
-edition, or wording that already appears inside the photographs themselves
-(`STAY STRONG`, the handwritten blessing, `THE FOUNTAINS`). No promotional
-copy, captions, or dedications were added — the final Maroon photograph in
-particular is intentionally left completely wordless.
+edition, wording that already appears inside the photographs themselves
+(`STAY STRONG`, the handwritten blessing, `THE FOUNTAINS`, `BELIEVE`, `KEEP
+FAITH`), or — for Emerald only — six short approved reflective sentences (see
+below). No promotional copy, captions, or dedications were added — the final
+photograph of both Emerald and Maroon is intentionally left completely
+wordless.
+
+### The Emerald Line
+
+Emerald's signature visual element is a single thin vertical line (`.e-line`)
+that runs through the entire edition via `position: sticky`, sitting at
+roughly 40% of the viewport width on desktop and closer to the left margin on
+mobile (`--e-line-x`, set on `.e-edition` and overridden in a mobile media
+query). It stays visually calm while the surrounding photographs and colours
+change, gives the reflective text fragments something to align to, and
+during the closing transition gradually hands off its colour from emerald to
+burgundy as the edition changes.
+
+### Reflective text placement
+
+The six approved sentences appear exactly once each, in this order:
+
+1. *Something in me stays.* — beside the Emerald cover
+2. *I return before the noise decides.* — after the external-motion sequence
+3. *What is rooted does not rush.* — beside the rain-covered leaves
+4. *The unseen still holds.* — aligned to the Emerald Line, believe spread
+5. *I know where to find myself.* — set apart from the handwritten note
+6. *I take the quiet with me.* — its own brief pause before the final image
 
 ## Technology
 
@@ -43,14 +69,18 @@ tooling required.
 
 - Responsive `<picture>` markup with WebP + JPEG sources and width-based
   `srcset`/`sizes`
-- CSS custom properties for two isolated colour systems (Blue's original
-  variables, plus a separate `--m-*` set sampled from the Maroon photographs)
+- CSS custom properties for three isolated colour systems (Blue's original
+  variables, plus separate `--m-*` and `--e-*` sets each sampled from their
+  own photographs)
 - A small vanilla JS file handling: reading-progress bar, "return to top"
-  button, a fixed edition index (`01 Maroon` / `02 Blue`) with keyboard- and
-  screen-reader-accessible current-edition state, optional arrow-key
-  navigation between plates/spreads, a progressive-enhancement reveal-on-
-  scroll for Maroon imagery, and a subtle desktop-only parallax on Blue's
-  plates — all reduced-motion aware
+  button, a fixed edition index (`01 Emerald` / `02 Maroon` / `03 Blue`) with
+  keyboard- and screen-reader-accessible current-edition state, optional
+  arrow-key navigation between plates/spreads, a progressive-enhancement
+  reveal-on-scroll for Emerald and Maroon imagery, a subtle desktop-only
+  parallax on Blue's plates, and a masthead auto-fit safety net that measures
+  each oversized title word (including Emerald's vertical one) against its
+  box and shrinks it if a given device's font metrics would otherwise clip
+  it — all reduced-motion aware
 
 ## Local development
 
@@ -71,6 +101,12 @@ There is no build step — `index.html` is the deployable site as-is.
 ## Image assets
 
 - `assets/images/originals/` — all source photographs, unmodified:
+  - Emerald: `emerald-elevator-cover`, `emerald-sprinklers`,
+    `emerald-rain-window`, `emerald-car-butterfly`, `emerald-rain-leaves`,
+    `emerald-certificate-primary`, `emerald-certificate-detail`,
+    `emerald-believe-primary`, `emerald-believe-detail`,
+    `emerald-keep-faith`, `emerald-ordinary-ritual`,
+    `emerald-walking-finale`
   - Maroon: `maroon-cover-ibrahim`, `maroon-light-object`,
     `maroon-walk-overhead`, `maroon-walk-motion`, `maroon-ring-detail`,
     `maroon-portfolio`, `maroon-bag-cabinet`, `maroon-shoes-sunlight`,
@@ -96,15 +132,36 @@ There is no build step — `index.html` is the deployable site as-is.
      marker. The prayer `<section class="m-interlude">` and the wordless
      `<section class="m-finale">` must keep no folio, no heading, no
      caption, and no overlaid text by design.
+   - Emerald: each `<section class="e-spread e-spread--*">` (plus the
+     three-image `<section class="e-sequence">`) is independent — reorder
+     the same way. The wordless `<section class="e-finale">` must keep no
+     caption or overlaid text by design; the six `.e-text` reflective
+     sentences should stay with their intended image per the table above.
 4. Update the `alt` text to accurately describe the new image.
+
+### Editing the reflective text
+
+The six Emerald sentences live as plain `<p class="e-text ...">` elements
+inside `index.html`, each with a modifier class (`e-text--sequence`,
+`e-text--leaves`, `e-text--believe`, `e-text--keepfaith`, `e-final-text`)
+controlling its placement. Only the six approved sentences should be used —
+do not add, paraphrase, or duplicate them elsewhere on the page.
+
+### How the Emerald Line works
+
+See "The Emerald Line" above. To retune it, adjust the `--e-line-x` custom
+property on `.e-edition` in `assets/css/style.css` (and its mobile override)
+rather than editing individual section rules.
 
 ### Adding a future colour edition
 
-Follow the Maroon Edition's pattern rather than Blue's: give the new edition
+Follow the Emerald or Maroon pattern rather than Blue's: give the new edition
 its own CSS variable prefix (e.g. `--g-*` for a green edition) and its own
 class namespace (`g-cover`, `g-spread`, …) so it cannot regress the existing
-editions, add its own entry to the `<nav class="edition-index">` list, and
-insert its markup, in scroll order, inside the shared `<main id="main">`.
+editions, add its own entry to the `<nav class="edition-index">` list
+(updating the numbering for every entry), and insert its markup, in scroll
+order, as the new first child inside the shared `<main id="main">` if it
+should lead the site, or wherever in the sequence it belongs otherwise.
 
 ## Deployment (GitHub Pages)
 

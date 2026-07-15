@@ -6,7 +6,9 @@
   var returnBtn = document.getElementById('returnCover');
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon')
+    document.querySelectorAll(
+      '.e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
+    )
   );
 
   if (yearEl) {
@@ -14,9 +16,12 @@
   }
 
   var ticking = false;
+  var maroonCover = document.getElementById('m-cover');
   var blueCover = document.getElementById('cover');
+  var editionLinkEmerald = document.getElementById('editionLinkEmerald');
   var editionLinkMaroon = document.getElementById('editionLinkMaroon');
   var editionLinkBlue = document.getElementById('editionLinkBlue');
+  var editionLinks = [editionLinkEmerald, editionLinkMaroon, editionLinkBlue];
 
   function updateOnScroll() {
     var doc = document.documentElement;
@@ -36,12 +41,24 @@
       }
     }
 
-    if (blueCover && editionLinkMaroon && editionLinkBlue) {
-      var blueActive = blueCover.getBoundingClientRect().top <= window.innerHeight * 0.5;
-      var active = blueActive ? editionLinkBlue : editionLinkMaroon;
-      var inactive = blueActive ? editionLinkMaroon : editionLinkBlue;
-      active.setAttribute('aria-current', 'true');
-      inactive.removeAttribute('aria-current');
+    if (maroonCover && blueCover && editionLinkEmerald && editionLinkMaroon && editionLinkBlue) {
+      var threshold = window.innerHeight * 0.5;
+      var active;
+      if (blueCover.getBoundingClientRect().top <= threshold) {
+        active = editionLinkBlue;
+      } else if (maroonCover.getBoundingClientRect().top <= threshold) {
+        active = editionLinkMaroon;
+      } else {
+        active = editionLinkEmerald;
+      }
+      editionLinks.forEach(function (link) {
+        if (!link) return;
+        if (link === active) {
+          link.setAttribute('aria-current', 'true');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
     }
 
     ticking = false;
@@ -149,7 +166,7 @@
   // cover instead of relying on a native anchor jump (consistent with the
   // return-to-top button above). Active-state tracking lives in
   // updateOnScroll, keyed off the same scroll loop.
-  [editionLinkMaroon, editionLinkBlue].forEach(function (link) {
+  editionLinks.forEach(function (link) {
     if (!link) return;
     link.addEventListener('click', function (event) {
       var targetId = link.getAttribute('href');
@@ -167,7 +184,9 @@
     document.documentElement.classList.add('js-reveal-armed');
 
     var revealTargets = Array.prototype.slice.call(
-      document.querySelectorAll('.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition')
+      document.querySelectorAll(
+        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition'
+      )
     );
 
     var revealObserver = new IntersectionObserver(
@@ -187,26 +206,34 @@
     });
   }
 
-  // Oversized masthead words (MAROON, BLUE) are sized with CSS clamp(), but
-  // actual glyph width varies by which font in the stack a given device
-  // resolves (e.g. iOS renders the real Didot, wider than desktop fallbacks).
+  // Oversized masthead words (MAROON, BLUE, EMERALD) are sized with CSS
+  // clamp(), but actual glyph metrics vary by which font in the stack a
+  // given device resolves (e.g. iOS renders the real Didot, wider than
+  // desktop fallbacks; font-stretch: condensed is not honoured everywhere).
   // Measure the rendered word against its available box and shrink in small
   // steps until it fits, so the masthead can never clip on any device.
+  // EMERALD is set in vertical writing-mode, so its "length" axis is height
+  // rather than width — detect that and compare the matching dimension.
   function fitMastheadWord(el) {
     if (!el) return;
     el.style.fontSize = '';
-    var size = parseFloat(window.getComputedStyle(el).fontSize);
+    var computed = window.getComputedStyle(el);
+    var size = parseFloat(computed.fontSize);
     if (!size) return;
+    var isVertical = computed.writingMode.indexOf('vertical') === 0;
     var minSize = size * 0.72;
     var guard = 40;
-    while (el.scrollWidth > el.clientWidth + 1 && size > minSize && guard-- > 0) {
+    function overflowing() {
+      return isVertical ? el.scrollHeight > el.clientHeight + 1 : el.scrollWidth > el.clientWidth + 1;
+    }
+    while (overflowing() && size > minSize && guard-- > 0) {
       size -= 1;
       el.style.fontSize = size + 'px';
     }
   }
 
   var mastheadWords = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover__word, .cover__word')
+    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word')
   );
 
   function fitAllMastheads() {

@@ -30,6 +30,19 @@
   --m-yellow-accent: #c9930f;
   --m-green: #34432f;
 
+  /* Emerald Edition — sampled from its own photographs, isolated from Maroon/Blue above */
+  --e-emerald-deep: #16211c;
+  --e-emerald-bright: #4fa688;
+  --e-blackened-green: #101714;
+  --e-forest-shadow: #232a26;
+  --e-graphite: #23272a;
+  --e-near-black: #030405;
+  --e-brushed-silver: #9a9691;
+  --e-rain-grey: #726a60;
+  --e-soft-ivory: #e7e5e0;
+  --e-antique-gold: #9c7f3c;
+  --e-amber: #d86c3e;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
   --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
@@ -240,7 +253,8 @@ button:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .cover__word,
-  .m-cover__word {
+  .m-cover__word,
+  .e-cover__word {
     animation: none;
     opacity: 1;
     filter: none;
@@ -545,7 +559,9 @@ button:focus-visible {
 
 @media (min-width: 1600px) {
   .plate,
-  .m-spread {
+  .m-spread,
+  .e-spread,
+  .e-sequence {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
   }
@@ -742,20 +758,31 @@ button:focus-visible {
 .js-reveal-armed .m-spread__figure,
 .js-reveal-armed .m-interlude__figure,
 .js-reveal-armed .m-finale__figure,
-.js-reveal-armed .m-transition {
+.js-reveal-armed .m-transition,
+.js-reveal-armed .e-spread__figure,
+.js-reveal-armed .e-sequence__frame,
+.js-reveal-armed .e-finale__figure,
+.js-reveal-armed .e-text,
+.js-reveal-armed .e-transition {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
 }
 
-.js-reveal-armed .m-transition {
+.js-reveal-armed .m-transition,
+.js-reveal-armed .e-transition {
   transform: none;
 }
 
 .js-reveal-armed .m-spread__figure.is-revealed,
 .js-reveal-armed .m-interlude__figure.is-revealed,
 .js-reveal-armed .m-finale__figure.is-revealed,
-.js-reveal-armed .m-transition.is-revealed {
+.js-reveal-armed .m-transition.is-revealed,
+.js-reveal-armed .e-spread__figure.is-revealed,
+.js-reveal-armed .e-sequence__frame.is-revealed,
+.js-reveal-armed .e-finale__figure.is-revealed,
+.js-reveal-armed .e-text.is-revealed,
+.js-reveal-armed .e-transition.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1058,6 +1085,461 @@ button:focus-visible {
 
 @media (max-width: 640px) {
   .m-transition {
+    height: clamp(26vh, 38vh, 42vh);
+  }
+}
+
+/* =====================================================================
+   EMERALD EDITION / VOLUME 112 — cinematic visual essay, isolated from
+   the Maroon and Blue rules above via the e- prefix on every class.
+   Internal direction: THE CENTRE HOLDS (not displayed on the page).
+   ===================================================================== */
+
+.e-edition {
+  --e-line-x: 40%;
+  position: relative;
+}
+
+@media (max-width: 640px) {
+  .e-edition {
+    --e-line-x: 14%;
+  }
+}
+
+/* ---------- the Emerald Line: the signature stable-centre element ---------- */
+
+.e-line-track {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.e-line {
+  position: absolute;
+  top: 0;
+  left: var(--e-line-x);
+  width: 1px;
+  height: 100%;
+  background: var(--e-emerald-bright);
+  opacity: 0.3;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .e-line {
+    transition: opacity 1.2s var(--ease-editorial);
+  }
+}
+
+/* ---------- shared reflective text base ---------- */
+
+.e-text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(0.95rem, 1.6vw, 1.2rem);
+  line-height: 1.6;
+  color: var(--e-soft-ivory);
+  opacity: 0.88;
+}
+
+/* ---------- Emerald masthead cover ---------- */
+
+.e-cover {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--e-near-black);
+}
+
+.e-cover__image {
+  position: absolute;
+  inset: 0;
+}
+
+.e-cover__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 62% 22%;
+}
+
+.e-cover__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+      to right,
+      rgba(3, 4, 5, 0.8) 0%,
+      rgba(3, 4, 5, 0.32) 24%,
+      rgba(3, 4, 5, 0) 44%
+    ),
+    linear-gradient(to top, rgba(3, 4, 5, 0.75) 0%, rgba(3, 4, 5, 0.25) 22%, rgba(3, 4, 5, 0) 40%);
+}
+
+.e-cover__masthead {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--e-line-x);
+  transform: translateX(-50%);
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+  padding: env(safe-area-inset-top) 0 env(safe-area-inset-bottom);
+}
+
+.e-cover__word {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin: 0;
+  max-height: 100%;
+  font-family: var(--font-sans);
+  font-stretch: condensed;
+  font-weight: 700;
+  font-size: clamp(3.5rem, 13vw, 9rem);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  line-height: 0.9;
+  color: var(--e-soft-ivory);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  filter: blur(6px);
+  animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
+}
+
+.e-cover__meta {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.65rem, 1.2vw, 0.85rem);
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--e-emerald-bright);
+}
+
+.e-cover__fragment {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 6vw, 3rem);
+  bottom: clamp(2rem, 8vh, 4rem);
+  max-width: 22ch;
+  text-align: right;
+}
+
+@media (max-width: 640px) {
+  .e-cover__fragment {
+    right: auto;
+    left: clamp(1rem, 6vw, 2rem);
+    text-align: left;
+    max-width: 18ch;
+  }
+}
+
+/* ---------- shared spread scaffolding ---------- */
+
+.e-spread,
+.e-sequence {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 6vw, 4rem);
+  gap: clamp(1.5rem, 4vh, 3rem);
+}
+
+.e-spread__figure,
+.e-sequence__frame,
+.e-finale__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.e-spread__figure img,
+.e-sequence__frame img,
+.e-finale__figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+.e-text--aligned {
+  align-self: flex-start;
+  max-width: 26ch;
+  margin-left: max(1.25rem, calc(var(--e-line-x) - 2rem));
+}
+
+/* ---- Sequence — external motion : three cinematic frames + text ---- */
+
+.e-sequence {
+  flex-direction: column;
+  background: var(--e-graphite);
+}
+
+.e-sequence__frame img {
+  box-shadow: 0 2rem 6rem -2rem rgba(0, 0, 0, 0.6);
+}
+
+.e-sequence__frame--a {
+  align-self: flex-start;
+}
+.e-sequence__frame--a img {
+  max-height: 82vh;
+  width: auto;
+}
+
+.e-sequence__frame--b {
+  align-self: flex-end;
+}
+.e-sequence__frame--b img {
+  max-height: 60vh;
+  width: auto;
+}
+
+.e-sequence__frame--c {
+  align-self: center;
+}
+.e-sequence__frame--c img {
+  max-height: 72vh;
+  width: auto;
+}
+
+.e-text--sequence {
+  align-self: flex-start;
+  max-width: 26ch;
+  margin-left: max(1.25rem, calc(var(--e-line-x) - 2rem));
+}
+
+@media (max-width: 640px) {
+  .e-sequence__frame--a img {
+    max-height: 50vh;
+  }
+  .e-sequence__frame--b img {
+    max-height: 40vh;
+  }
+  .e-sequence__frame--c img {
+    max-height: 46vh;
+  }
+}
+
+/* ---- Rooted life — immersive single image + text ---- */
+
+.e-spread--leaves {
+  flex-direction: column;
+  background: var(--e-blackened-green);
+}
+
+.e-spread--leaves .e-spread__figure img {
+  max-height: calc(100svh - 8rem);
+  width: auto;
+  object-fit: contain;
+}
+
+.e-text--leaves {
+  align-self: center;
+  max-width: 26ch;
+  text-align: center;
+}
+
+/* ---- Identity and achievement — certificate pair, no text ---- */
+
+.e-spread--certificates {
+  background: var(--e-graphite);
+}
+
+.e-spread--certificates .e-spread__figure--a {
+  align-self: flex-start;
+}
+.e-spread--certificates .e-spread__figure--a img {
+  max-height: 70vh;
+  width: auto;
+}
+
+.e-spread--certificates .e-spread__figure--b {
+  align-self: flex-end;
+  margin-top: clamp(2rem, 8vh, 5rem);
+}
+.e-spread--certificates .e-spread__figure--b img {
+  max-height: 46vh;
+  width: auto;
+  box-shadow: 0 2rem 6rem -1.5rem rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 640px) {
+  .e-spread--certificates .e-spread__figure--a,
+  .e-spread--certificates .e-spread__figure--b {
+    align-self: center;
+    margin-top: 0;
+  }
+  .e-spread--certificates .e-spread__figure--a img {
+    max-height: 42vh;
+  }
+  .e-spread--certificates .e-spread__figure--b img {
+    max-height: 34vh;
+  }
+}
+
+/* ---- Belief and the unseen — dark editorial pair + text ---- */
+
+.e-spread--believe {
+  background: var(--e-near-black);
+}
+
+.e-spread--believe .e-spread__figure--a img {
+  max-height: 64vh;
+  width: auto;
+}
+
+.e-spread--believe .e-spread__figure--b {
+  margin-top: clamp(1.5rem, 6vh, 3.5rem);
+}
+.e-spread--believe .e-spread__figure--b img {
+  max-height: 42vh;
+  width: auto;
+  box-shadow: 0 2rem 6rem -1.5rem rgba(0, 0, 0, 0.6);
+}
+
+.e-text--believe {
+  width: 100%;
+  max-width: 24ch;
+  margin-left: max(1.25rem, calc(var(--e-line-x) - 2rem));
+}
+
+@media (max-width: 640px) {
+  .e-spread--believe .e-spread__figure--a img {
+    max-height: 40vh;
+  }
+  .e-spread--believe .e-spread__figure--b img {
+    max-height: 32vh;
+  }
+}
+
+/* ---- The handwritten centre — dedicated, generous, slow ---- */
+
+.e-spread--keepfaith {
+  flex-direction: column;
+  background: var(--e-blackened-green);
+  padding-top: clamp(5rem, 14vh, 8rem);
+  padding-bottom: clamp(5rem, 14vh, 8rem);
+  gap: clamp(3rem, 10vh, 6rem);
+}
+
+.e-spread--keepfaith .e-spread__figure img {
+  max-height: 54vh;
+  width: auto;
+  object-fit: contain;
+}
+
+.e-text--keepfaith {
+  text-align: center;
+  max-width: 26ch;
+}
+
+/* ---- Ordinary ritual — quiet observational pause, no text ---- */
+
+.e-spread--ritual {
+  background: var(--e-graphite);
+}
+
+.e-spread--ritual .e-spread__figure img {
+  max-height: 62vh;
+  width: auto;
+}
+
+/* ---- Final movement — text pause, then the wordless finale ---- */
+
+.e-final-text {
+  text-align: center;
+  max-width: 24ch;
+  margin: 0 auto;
+  padding: clamp(3rem, 10vh, 6rem) 1.5rem;
+  background: var(--e-near-black);
+}
+
+.e-finale {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--e-near-black);
+  padding: clamp(1.5rem, 5vh, 3rem) clamp(1rem, 5vw, 3rem);
+}
+
+.e-finale__figure img {
+  max-height: calc(100svh - 3rem);
+  width: auto;
+  object-fit: contain;
+}
+
+/* ---- Emerald → Maroon transition : colour handover, no copy, no button ---- */
+
+.e-transition {
+  position: relative;
+  height: clamp(34vh, 50vh, 60vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--e-near-black) 0%,
+    var(--e-forest-shadow) 14%,
+    var(--e-emerald-deep) 26%,
+    var(--e-antique-gold) 40%,
+    var(--m-gold) 50%,
+    var(--m-burgundy) 64%,
+    var(--m-oxblood) 78%,
+    var(--m-maroon) 90%,
+    var(--m-charcoal) 100%
+  );
+}
+
+.e-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.12;
+  user-select: none;
+}
+
+.e-transition__letter--e {
+  top: 3%;
+  font-family: var(--font-sans);
+  font-stretch: condensed;
+  color: var(--e-emerald-bright);
+}
+
+.e-transition__letter--m {
+  bottom: 3%;
+  font-family: var(--m-font-serif);
+  color: var(--m-cream-bright);
+}
+
+.e-transition__rule {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 420px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--e-emerald-bright) 18%,
+    var(--m-gold) 82%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
+@media (max-width: 640px) {
+  .e-transition {
     height: clamp(26vh, 38vh, 42vh);
   }
 }
