@@ -1,6 +1,6 @@
 # Rights Notice
 
-This repository contains two distinct categories of material, with separate rights.
+This repository contains three distinct categories of material, with separate rights.
 
 ## Source code
 
@@ -17,6 +17,14 @@ and derived web/optimized versions) remain the property of Dragan Andric and
 may not be reproduced, redistributed, or used without permission. Their
 inclusion in a public repository does not constitute a license or grant of
 reuse rights of any kind.
+
+## The Saffron poem
+
+The text of "To My Imaginary Lover", displayed in the Saffron Edition
+section of this site, remains the property of its author and may not be
+reproduced, redistributed, or used without permission. Its inclusion in a
+public repository does not constitute a license or grant of reuse rights of
+any kind.
 
 No warranty of any kind is made regarding this material, and no legal status
 beyond what is stated above should be assumed or inferred.

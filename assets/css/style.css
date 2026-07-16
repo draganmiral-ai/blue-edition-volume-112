@@ -43,6 +43,16 @@
   --e-antique-gold: #9c7f3c;
   --e-amber: #d86c3e;
 
+  /* Saffron Edition — sampled from its own photograph, isolated from the palettes above */
+  --s-saffron: #c9a05e;
+  --s-amber: #d1935a;
+  --s-cloud-ivory: #ede4d3;
+  --s-cream: #f2ead9;
+  --s-charcoal: #221e1c;
+  --s-asphalt: #14110f;
+  --s-traffic-red: #a83a2e;
+  --s-warm-grey: #6b6259;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
   --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
@@ -254,7 +264,8 @@ button:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   .cover__word,
   .m-cover__word,
-  .e-cover__word {
+  .e-cover__word,
+  .s-cover__word {
     animation: none;
     opacity: 1;
     filter: none;
@@ -561,7 +572,8 @@ button:focus-visible {
   .plate,
   .m-spread,
   .e-spread,
-  .e-sequence {
+  .e-sequence,
+  .s-poem {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
   }
@@ -763,14 +775,19 @@ button:focus-visible {
 .js-reveal-armed .e-sequence__frame,
 .js-reveal-armed .e-finale__figure,
 .js-reveal-armed .e-text,
-.js-reveal-armed .e-transition {
+.js-reveal-armed .e-transition,
+.js-reveal-armed .s-poem__image,
+.js-reveal-armed .s-poem__text,
+.js-reveal-armed .s-title__word,
+.js-reveal-armed .s-transition {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
 }
 
 .js-reveal-armed .m-transition,
-.js-reveal-armed .e-transition {
+.js-reveal-armed .e-transition,
+.js-reveal-armed .s-transition {
   transform: none;
 }
 
@@ -782,7 +799,11 @@ button:focus-visible {
 .js-reveal-armed .e-sequence__frame.is-revealed,
 .js-reveal-armed .e-finale__figure.is-revealed,
 .js-reveal-armed .e-text.is-revealed,
-.js-reveal-armed .e-transition.is-revealed {
+.js-reveal-armed .e-transition.is-revealed,
+.js-reveal-armed .s-poem__image.is-revealed,
+.js-reveal-armed .s-poem__text.is-revealed,
+.js-reveal-armed .s-title__word.is-revealed,
+.js-reveal-armed .s-transition.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1540,6 +1561,323 @@ button:focus-visible {
 
 @media (max-width: 640px) {
   .e-transition {
+    height: clamp(26vh, 38vh, 42vh);
+  }
+}
+
+/* =====================================================================
+   SAFFRON EDITION / VOLUME 112 — single-image poetic essay, isolated from
+   the Emerald/Maroon/Blue rules above via the s- prefix on every class.
+   Internal direction: THE LIGHT WAS RED (not displayed on the page).
+   ===================================================================== */
+
+.s-edition {
+  position: relative;
+}
+
+/* ---------- masthead cover ---------- */
+
+.s-cover {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--s-asphalt);
+}
+
+.s-cover__image {
+  position: absolute;
+  inset: 0;
+}
+
+.s-cover__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.s-cover__scrim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(20, 17, 15, 0.85) 0%,
+    rgba(20, 17, 15, 0.35) 20%,
+    rgba(20, 17, 15, 0) 38%
+  );
+}
+
+.s-cover__masthead {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.4rem, 1vw, 0.75rem);
+  padding: 0 clamp(1.25rem, 6vw, 4rem) clamp(2.5rem, 8vh, 4.5rem);
+}
+
+.s-cover__word {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: clamp(3.5rem, 14vw, 8rem);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  line-height: 0.95;
+  color: var(--s-cloud-ivory);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  filter: blur(6px);
+  animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
+}
+
+.s-cover__meta {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.7rem, 1.4vw, 0.9rem);
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: var(--s-saffron);
+}
+
+/* ---------- title page ---------- */
+
+.s-title {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--s-cream);
+  padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 6vw, 4rem);
+}
+
+.s-title__word {
+  margin: 0;
+  max-width: 20ch;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: clamp(1.8rem, 5vw, 3.2rem);
+  line-height: 1.3;
+  color: var(--s-charcoal);
+}
+
+/* ---------- shared poem scaffolding ---------- */
+
+.s-poem {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 4rem);
+  padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 6vw, 4rem);
+}
+
+.s-poem__text {
+  max-width: 34ch;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 4vh, 2.5rem);
+}
+
+.s-poem__stanza {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.75;
+  color: var(--s-charcoal);
+}
+
+.s-poem__emphasis {
+  font-style: italic;
+  color: var(--s-saffron);
+}
+
+.s-poem__image {
+  margin: 0;
+  width: clamp(220px, 36vw, 380px);
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.s-poem__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 82%;
+  box-shadow: 0 2rem 5rem -2rem rgba(20, 17, 15, 0.4);
+}
+
+.s-poem__image--sky {
+  width: clamp(280px, 56vw, 620px);
+  aspect-ratio: 4 / 3;
+}
+.s-poem__image--sky img {
+  object-position: center 15%;
+}
+
+.s-poem__image--upward {
+  width: clamp(200px, 32vw, 320px);
+  aspect-ratio: 1 / 1;
+}
+.s-poem__image--upward img {
+  object-position: center 22%;
+}
+
+.s-poem__image--full {
+  width: clamp(260px, 42vw, 440px);
+  aspect-ratio: auto;
+}
+.s-poem__image--full img {
+  height: auto;
+  object-fit: contain;
+  object-position: center;
+  box-shadow: 0 2rem 6rem -2rem rgba(20, 17, 15, 0.45);
+}
+
+/* ---- Movement 1 — grounded in the city ---- */
+
+.s-poem--city {
+  background: var(--s-cream);
+}
+
+/* ---- The central pause : the emotional centre, near-empty ---- */
+
+.s-poem--pause {
+  flex-direction: column;
+  background: var(--s-cloud-ivory);
+  gap: clamp(2rem, 6vh, 4rem);
+  text-align: center;
+  padding-top: clamp(5rem, 16vh, 9rem);
+  padding-bottom: clamp(5rem, 16vh, 9rem);
+}
+
+.s-poem--pause .s-poem__stanza {
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  opacity: 0.92;
+}
+
+/* ---- The sky opens — dark surround, sky-favouring crop ---- */
+
+.s-poem--sky {
+  flex-direction: row-reverse;
+  background: var(--s-charcoal);
+}
+.s-poem--sky .s-poem__stanza {
+  color: var(--s-cloud-ivory);
+}
+
+/* ---- Looking upward — airy, spacious, stacked ---- */
+
+.s-poem--upward {
+  flex-direction: column;
+  background: var(--s-cream);
+  text-align: center;
+}
+.s-poem--upward .s-poem__text {
+  align-items: center;
+}
+.s-poem--upward .s-poem__stanza {
+  text-align: center;
+}
+
+/* ---- The final crossing — full photograph restored ---- */
+
+.s-poem--finale {
+  background: var(--s-cream);
+}
+
+@media (max-width: 640px) {
+  .s-poem--city,
+  .s-poem--sky,
+  .s-poem--finale {
+    flex-direction: column;
+  }
+  .s-poem__text {
+    max-width: 30ch;
+  }
+  .s-poem__image {
+    width: min(70vw, 300px);
+  }
+  .s-poem__image--sky {
+    width: min(92vw, 480px);
+  }
+  .s-poem__image--upward {
+    width: min(58vw, 240px);
+  }
+  .s-poem__image--full {
+    width: min(74vw, 320px);
+  }
+}
+
+/* ---- Saffron → Emerald transition : colour handover, no copy ---- */
+
+.s-transition {
+  position: relative;
+  height: clamp(34vh, 50vh, 60vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--s-cream) 0%,
+    var(--s-saffron) 18%,
+    var(--s-amber) 34%,
+    var(--s-charcoal) 52%,
+    var(--e-forest-shadow) 68%,
+    var(--e-emerald-deep) 82%,
+    var(--e-near-black) 100%
+  );
+}
+
+.s-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.12;
+  user-select: none;
+  font-family: var(--font-sans);
+}
+
+.s-transition__letter--s {
+  top: 3%;
+  color: var(--s-cloud-ivory);
+}
+
+.s-transition__letter--e {
+  bottom: 3%;
+  font-stretch: condensed;
+  color: var(--e-emerald-bright);
+}
+
+.s-transition__rule {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 420px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--s-saffron) 18%,
+    var(--e-emerald-bright) 82%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
+@media (max-width: 640px) {
+  .s-transition {
     height: clamp(26vh, 38vh, 42vh);
   }
 }

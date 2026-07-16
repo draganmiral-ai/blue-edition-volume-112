@@ -1,42 +1,71 @@
-# Emerald, Maroon & Blue / Volume 112
+# Saffron, Emerald, Maroon & Blue / Volume 112
 
 A quiet, single continuous-scroll digital editorial site by Dragan Andric,
-containing three colour-themed editions back to back. No galleries, no
-accounts, no forms — one calm scroll through all three.
+containing four colour-themed editions back to back. No galleries, no
+accounts, no forms — one calm scroll through all four.
 
 **Live site:** https://draganmiral-ai.github.io/blue-edition-volume-112/
 
 ## Concept
 
-**Emerald Edition / Volume 112** opens the site: a cinematic visual essay
-about preserving an inner centre while ordinary life moves, blurs, and
-accelerates around it. Rain, motion blur, reflective metal, and city light
-carry the visitor through external movement, while six short reflective
-fragments — never explaining themselves — mark the moments where the
-external noise gives way to something steadier. It closes on a single
-wordless walking photograph, then a quiet colour-handover transition carries
-the visitor into **Maroon Edition / Volume 112**: a fashion-magazine-inspired
-editorial study in maroon, burgundy, oxblood, cream, and gold, moving through
-personal objects, jewellery, movement, and private spaces, pausing on a
-dedicated Persian-inspired prayer interlude, then closing on its own single
-wordless photograph. A second transition carries the visitor into **Blue
-Edition / Volume 112**, a photo-book paced study in navy, cobalt, ivory, and
-concrete across five plates and a closing colophon.
+**Saffron Edition / Volume 112** opens the site: a poetic single-image essay
+built from one photograph — a city intersection at a red light, sunset
+breaking through a cloud-filled sky — and one poem, "To My Imaginary Lover."
+Where every other edition is a photographic sequence, Saffron is deliberately
+distilled to a single visual anchor and a literary unfolding: the road says
+stop, the sky says promise. The poem unfolds across seven quiet chapters,
+crops of the same photograph reframing it each time, before a colour-handover
+transition carries the visitor into **Emerald Edition / Volume 112**: a
+cinematic visual essay about preserving an inner centre while ordinary life
+moves, blurs, and accelerates around it. Rain, motion blur, reflective metal,
+and city light carry the visitor through external movement, while six short
+reflective fragments — never explaining themselves — mark the moments where
+the external noise gives way to something steadier. It closes on a single
+wordless walking photograph, then a second transition carries the visitor
+into **Maroon Edition / Volume 112**: a fashion-magazine-inspired editorial
+study in maroon, burgundy, oxblood, cream, and gold, moving through personal
+objects, jewellery, movement, and private spaces, pausing on a dedicated
+Persian-inspired prayer interlude, then closing on its own single wordless
+photograph. A third transition carries the visitor into **Blue Edition /
+Volume 112**, a photo-book paced study in navy, cobalt, ivory, and concrete
+across five plates and a closing colophon.
 
-Each edition is deliberately distinct in feel — Emerald is dark, kinetic, and
-literary; Maroon is tactile, layered, and magazine-led; Blue is spacious,
-architectural, and restrained — but all three share the same craftsmanship,
-typographic discipline, and editorial restraint. Emerald and Maroon each use
-their own isolated CSS namespace and colour variables (`e-`/`--e-*` and
-`m-`/`--m-*` respectively) so neither can regress the others' design.
+Each edition is deliberately distinct in feel — Saffron is luminous, spacious,
+and literary; Emerald is dark, kinetic, and reflective; Maroon is tactile,
+layered, and magazine-led; Blue is spacious, architectural, and restrained —
+but all four share the same craftsmanship, typographic discipline, and
+editorial restraint. Saffron, Emerald, and Maroon each use their own isolated
+CSS namespace and colour variables (`s-`/`--s-*`, `e-`/`--e-*`, and
+`m-`/`--m-*` respectively) so none can regress the others' design.
 
 All visible text on the site is either the approved title/credit for each
 edition, wording that already appears inside the photographs themselves
 (`STAY STRONG`, the handwritten blessing, `THE FOUNTAINS`, `BELIEVE`, `KEEP
-FAITH`), or — for Emerald only — six short approved reflective sentences (see
-below). No promotional copy, captions, or dedications were added — the final
-photograph of both Emerald and Maroon is intentionally left completely
-wordless.
+FAITH`), the Saffron poem (see below), or — for Emerald only — six short
+approved reflective sentences. No promotional copy, captions, or dedications
+were added — the final photograph of both Emerald and Maroon is intentionally
+left completely wordless, and Saffron carries no copy beyond its title and
+the poem itself.
+
+### The Saffron poem
+
+"To My Imaginary Lover" is used in full and unaltered, split across the
+edition's chapters in this order — title page, then:
+
+1. *Tonight, I met you at a red light... / Not in a dream... were happening
+   above it.* — first movement, grounded in the city
+2. *The light told me to wait. / So I waited.* — the central pause, its own
+   nearly-empty section
+3. *And somewhere between... with intention.* — the sky opens
+4. *Until the day... that suddenly feels sacred.* — looking upward
+5. *And when the road finally opens... it would not remain so forever.* —
+   the final crossing, returning to the full photograph
+
+The poem text lives as plain `<p class="s-poem__stanza">` elements inside
+`index.html`, within each `<section class="s-poem s-poem--*">`. Edit the
+wording there directly — there is no separate data file. The final line
+("it would not remain so forever.") carries a subtle colour/italic emphasis
+via `.s-poem__emphasis`; nothing else in the poem is styled differently.
 
 ### The Emerald Line
 
@@ -49,7 +78,7 @@ change, gives the reflective text fragments something to align to, and
 during the closing transition gradually hands off its colour from emerald to
 burgundy as the edition changes.
 
-### Reflective text placement
+### Reflective text placement (Emerald)
 
 The six approved sentences appear exactly once each, in this order:
 
@@ -69,18 +98,18 @@ tooling required.
 
 - Responsive `<picture>` markup with WebP + JPEG sources and width-based
   `srcset`/`sizes`
-- CSS custom properties for three isolated colour systems (Blue's original
-  variables, plus separate `--m-*` and `--e-*` sets each sampled from their
-  own photographs)
+- CSS custom properties for four isolated colour systems (Blue's original
+  variables, plus separate `--m-*`, `--e-*`, and `--s-*` sets each sampled
+  from their own photographs)
 - A small vanilla JS file handling: reading-progress bar, "return to top"
-  button, a fixed edition index (`01 Emerald` / `02 Maroon` / `03 Blue`) with
-  keyboard- and screen-reader-accessible current-edition state, optional
-  arrow-key navigation between plates/spreads, a progressive-enhancement
-  reveal-on-scroll for Emerald and Maroon imagery, a subtle desktop-only
-  parallax on Blue's plates, and a masthead auto-fit safety net that measures
-  each oversized title word (including Emerald's vertical one) against its
-  box and shrinks it if a given device's font metrics would otherwise clip
-  it — all reduced-motion aware
+  button, a fixed edition index (`01 Saffron` / `02 Emerald` / `03 Maroon` /
+  `04 Blue`) with keyboard- and screen-reader-accessible current-edition
+  state, optional arrow-key navigation between plates/spreads, a
+  progressive-enhancement reveal-on-scroll for Saffron, Emerald, and Maroon
+  imagery, a subtle desktop-only parallax on Blue's plates, and a masthead
+  auto-fit safety net that measures each oversized title word (including
+  Emerald's vertical one) against its box and shrinks it if a given device's
+  font metrics would otherwise clip it — all reduced-motion aware
 
 ## Local development
 
@@ -101,6 +130,8 @@ There is no build step — `index.html` is the deployable site as-is.
 ## Image assets
 
 - `assets/images/originals/` — all source photographs, unmodified:
+  - Saffron: `saffron-red-light-sky` (single image, reused with different
+    CSS crops across the edition's chapters)
   - Emerald: `emerald-elevator-cover`, `emerald-sprinklers`,
     `emerald-rain-window`, `emerald-car-butterfly`, `emerald-rain-leaves`,
     `emerald-certificate-primary`, `emerald-certificate-detail`,
@@ -137,9 +168,13 @@ There is no build step — `index.html` is the deployable site as-is.
      the same way. The wordless `<section class="e-finale">` must keep no
      caption or overlaid text by design; the six `.e-text` reflective
      sentences should stay with their intended image per the table above.
+   - Saffron: uses a single photograph reused across chapters via different
+     `.s-poem__image` modifier classes (`--sky`, `--upward`, `--full`)
+     controlling the crop/aspect-ratio — there is nothing to reorder unless
+     a second Saffron photograph is added in the future.
 4. Update the `alt` text to accurately describe the new image.
 
-### Editing the reflective text
+### Editing the reflective text (Emerald)
 
 The six Emerald sentences live as plain `<p class="e-text ...">` elements
 inside `index.html`, each with a modifier class (`e-text--sequence`,
@@ -155,13 +190,13 @@ rather than editing individual section rules.
 
 ### Adding a future colour edition
 
-Follow the Emerald or Maroon pattern rather than Blue's: give the new edition
-its own CSS variable prefix (e.g. `--g-*` for a green edition) and its own
-class namespace (`g-cover`, `g-spread`, …) so it cannot regress the existing
-editions, add its own entry to the `<nav class="edition-index">` list
-(updating the numbering for every entry), and insert its markup, in scroll
-order, as the new first child inside the shared `<main id="main">` if it
-should lead the site, or wherever in the sequence it belongs otherwise.
+Follow the Saffron, Emerald, or Maroon pattern rather than Blue's: give the
+new edition its own CSS variable prefix (e.g. `--g-*` for a green edition)
+and its own class namespace (`g-cover`, `g-spread`, …) so it cannot regress
+the existing editions, add its own entry to the `<nav class="edition-index">`
+list (updating the numbering for every entry), and insert its markup, in
+scroll order, as the new first child inside the shared `<main id="main">` if
+it should lead the site, or wherever in the sequence it belongs otherwise.
 
 ## Deployment (GitHub Pages)
 
@@ -176,4 +211,6 @@ GitHub Actions**.
 The source code and the photographs have **separate rights** — see
 [`LICENSE.md`](LICENSE.md). In short: all photographs and visual artworks
 remain the property of Dragan Andric and may not be reproduced,
-redistributed, or reused without permission.
+redistributed, or reused without permission. The poem "To My Imaginary
+Lover" likewise remains the property of its author and may not be
+reproduced, redistributed, or reused without permission.

@@ -7,7 +7,7 @@
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
     document.querySelectorAll(
-      '.e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
+      '.s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
     )
   );
 
@@ -16,12 +16,14 @@
   }
 
   var ticking = false;
+  var emeraldCover = document.getElementById('e-cover');
   var maroonCover = document.getElementById('m-cover');
   var blueCover = document.getElementById('cover');
+  var editionLinkSaffron = document.getElementById('editionLinkSaffron');
   var editionLinkEmerald = document.getElementById('editionLinkEmerald');
   var editionLinkMaroon = document.getElementById('editionLinkMaroon');
   var editionLinkBlue = document.getElementById('editionLinkBlue');
-  var editionLinks = [editionLinkEmerald, editionLinkMaroon, editionLinkBlue];
+  var editionLinks = [editionLinkSaffron, editionLinkEmerald, editionLinkMaroon, editionLinkBlue];
 
   function updateOnScroll() {
     var doc = document.documentElement;
@@ -41,15 +43,25 @@
       }
     }
 
-    if (maroonCover && blueCover && editionLinkEmerald && editionLinkMaroon && editionLinkBlue) {
+    if (
+      emeraldCover &&
+      maroonCover &&
+      blueCover &&
+      editionLinkSaffron &&
+      editionLinkEmerald &&
+      editionLinkMaroon &&
+      editionLinkBlue
+    ) {
       var threshold = window.innerHeight * 0.5;
       var active;
       if (blueCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkBlue;
       } else if (maroonCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkMaroon;
-      } else {
+      } else if (emeraldCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkEmerald;
+      } else {
+        active = editionLinkSaffron;
       }
       editionLinks.forEach(function (link) {
         if (!link) return;
@@ -185,7 +197,7 @@
 
     var revealTargets = Array.prototype.slice.call(
       document.querySelectorAll(
-        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition'
+        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition'
       )
     );
 
@@ -206,7 +218,7 @@
     });
   }
 
-  // Oversized masthead words (MAROON, BLUE, EMERALD) are sized with CSS
+  // Oversized masthead words (SAFFRON, EMERALD, MAROON, BLUE) are sized with CSS
   // clamp(), but actual glyph metrics vary by which font in the stack a
   // given device resolves (e.g. iOS renders the real Didot, wider than
   // desktop fallbacks; font-stretch: condensed is not honoured everywhere).
@@ -233,7 +245,7 @@
   }
 
   var mastheadWords = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word')
+    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word, .s-cover__word')
   );
 
   function fitAllMastheads() {
