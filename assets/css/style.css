@@ -53,6 +53,17 @@
   --s-traffic-red: #a83a2e;
   --s-warm-grey: #6b6259;
 
+  /* Onyx Edition — sampled from its own photographs, isolated from the palettes above */
+  --o-onyx: #0a0605;
+  --o-charcoal: #2b160f;
+  --o-smoked-brown: #2f2013;
+  --o-blackened-olive: #30281e;
+  --o-bone-ivory: #ece3d3;
+  --o-muted-silver: #8f887c;
+  --o-ember-red: #8a3226;
+  --o-antique-gold: #a8823a;
+  --o-firelight-amber: #d68a4a;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
   --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
@@ -573,7 +584,8 @@ button:focus-visible {
   .m-spread,
   .e-spread,
   .e-sequence,
-  .s-poem {
+  .s-poem,
+  .o-aperture {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
   }
@@ -639,12 +651,15 @@ button:focus-visible {
 @media (max-width: 640px) {
   .edition-index {
     flex-direction: row;
-    gap: 0.65rem;
-    padding: 0.4rem 0.6rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    max-width: calc(100vw - 1.5rem);
+    gap: 0.3rem 0.55rem;
+    padding: 0.35rem 0.55rem;
   }
   .edition-index__link {
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
+    font-size: 0.56rem;
+    letter-spacing: 0.1em;
   }
 }
 
@@ -779,7 +794,9 @@ button:focus-visible {
 .js-reveal-armed .s-poem__image,
 .js-reveal-armed .s-poem__text,
 .js-reveal-armed .s-title__word,
-.js-reveal-armed .s-transition {
+.js-reveal-armed .s-transition,
+.js-reveal-armed .o-text,
+.js-reveal-armed .o-transition {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
@@ -787,7 +804,8 @@ button:focus-visible {
 
 .js-reveal-armed .m-transition,
 .js-reveal-armed .e-transition,
-.js-reveal-armed .s-transition {
+.js-reveal-armed .s-transition,
+.js-reveal-armed .o-transition {
   transform: none;
 }
 
@@ -803,7 +821,9 @@ button:focus-visible {
 .js-reveal-armed .s-poem__image.is-revealed,
 .js-reveal-armed .s-poem__text.is-revealed,
 .js-reveal-armed .s-title__word.is-revealed,
-.js-reveal-armed .s-transition.is-revealed {
+.js-reveal-armed .s-transition.is-revealed,
+.js-reveal-armed .o-text.is-revealed,
+.js-reveal-armed .o-transition.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1878,6 +1898,194 @@ button:focus-visible {
 
 @media (max-width: 640px) {
   .s-transition {
+    height: clamp(26vh, 38vh, 42vh);
+  }
+}
+
+/* =====================================================================
+   ONYX EDITION / VOLUME 112 — four-image nocturne, isolated from the
+   Saffron/Emerald/Maroon/Blue rules above via the o- prefix on every class.
+   Internal direction: THE ROOM HELD ME (not displayed on the page).
+   ===================================================================== */
+
+.o-edition {
+  position: relative;
+  background: var(--o-onyx);
+}
+
+/* ---------- opening cover : title/closing text is embedded in the photo ---------- */
+
+.o-cover {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  background: var(--o-onyx);
+}
+
+.o-cover__image {
+  position: absolute;
+  inset: 0;
+}
+
+.o-cover__image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ---------- shared reflective text ---------- */
+
+.o-text {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  line-height: 1.7;
+  color: var(--o-bone-ivory);
+  opacity: 0.9;
+  max-width: 26ch;
+}
+
+.o-final-text {
+  text-align: center;
+  max-width: 24ch;
+  margin: 0 auto;
+  padding: clamp(3rem, 10vh, 6rem) 1.5rem;
+  background: var(--o-onyx);
+}
+
+/* ---------- The Aperture : narrow reveal that widens as the chapter enters ---------- */
+
+.o-aperture {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2rem, 6vw, 4rem);
+  padding: clamp(4rem, 12vh, 7rem) clamp(1.25rem, 6vw, 4rem);
+  background: var(--o-charcoal);
+}
+
+.o-aperture__frame {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: clamp(240px, 40vw, 420px);
+}
+
+.o-aperture__image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  box-shadow: 0 2rem 6rem -2rem rgba(0, 0, 0, 0.7);
+}
+
+/* Progressive enhancement: fully visible without JS or with reduced motion.
+   Only .js-reveal-armed narrows the clip-path first so it can widen open
+   as the chapter scrolls into view — eyes adjusting to a dark room. */
+.js-reveal-armed .o-aperture__image {
+  clip-path: inset(0 42% 0 42%);
+  transition: clip-path 1.2s var(--ease-editorial);
+}
+
+.js-reveal-armed .o-aperture__image.is-revealed {
+  clip-path: inset(0 0 0 0);
+}
+
+.o-aperture--reflection {
+  background: var(--o-blackened-olive);
+}
+
+.o-aperture--language {
+  background: var(--o-onyx);
+}
+
+.o-aperture--flame {
+  background: var(--o-smoked-brown);
+}
+
+.o-finale {
+  padding-top: clamp(2rem, 6vh, 4rem);
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+
+.o-finale .o-aperture__frame {
+  width: clamp(260px, 46vw, 480px);
+}
+
+@media (max-width: 640px) {
+  .o-aperture__frame {
+    width: min(78vw, 340px);
+  }
+  .o-finale .o-aperture__frame {
+    width: min(84vw, 380px);
+  }
+  .js-reveal-armed .o-aperture__image {
+    clip-path: inset(0 34% 0 34%);
+  }
+}
+
+/* ---- Onyx → Saffron transition : a small flame warming into a horizon ---- */
+
+.o-transition {
+  position: relative;
+  height: clamp(34vh, 50vh, 60vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--o-smoked-brown) 0%,
+    var(--o-ember-red) 22%,
+    var(--o-firelight-amber) 40%,
+    var(--s-saffron) 58%,
+    var(--s-amber) 74%,
+    var(--s-cream) 100%
+  );
+}
+
+.o-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 700;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.12;
+  user-select: none;
+  font-family: var(--font-sans);
+}
+
+.o-transition__letter--o {
+  top: 3%;
+  color: var(--o-bone-ivory);
+}
+
+.o-transition__letter--s {
+  bottom: 3%;
+  color: var(--s-charcoal);
+}
+
+.o-transition__rule {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 420px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--o-firelight-amber) 18%,
+    var(--s-saffron) 82%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
+@media (max-width: 640px) {
+  .o-transition {
     height: clamp(26vh, 38vh, 42vh);
   }
 }

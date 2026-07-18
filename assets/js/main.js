@@ -7,7 +7,7 @@
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
     document.querySelectorAll(
-      '.s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
+      '.o-cover, .o-aperture, .s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
     )
   );
 
@@ -16,14 +16,22 @@
   }
 
   var ticking = false;
+  var saffronCover = document.getElementById('s-cover');
   var emeraldCover = document.getElementById('e-cover');
   var maroonCover = document.getElementById('m-cover');
   var blueCover = document.getElementById('cover');
+  var editionLinkOnyx = document.getElementById('editionLinkOnyx');
   var editionLinkSaffron = document.getElementById('editionLinkSaffron');
   var editionLinkEmerald = document.getElementById('editionLinkEmerald');
   var editionLinkMaroon = document.getElementById('editionLinkMaroon');
   var editionLinkBlue = document.getElementById('editionLinkBlue');
-  var editionLinks = [editionLinkSaffron, editionLinkEmerald, editionLinkMaroon, editionLinkBlue];
+  var editionLinks = [
+    editionLinkOnyx,
+    editionLinkSaffron,
+    editionLinkEmerald,
+    editionLinkMaroon,
+    editionLinkBlue
+  ];
 
   function updateOnScroll() {
     var doc = document.documentElement;
@@ -44,9 +52,11 @@
     }
 
     if (
+      saffronCover &&
       emeraldCover &&
       maroonCover &&
       blueCover &&
+      editionLinkOnyx &&
       editionLinkSaffron &&
       editionLinkEmerald &&
       editionLinkMaroon &&
@@ -60,8 +70,10 @@
         active = editionLinkMaroon;
       } else if (emeraldCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkEmerald;
-      } else {
+      } else if (saffronCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkSaffron;
+      } else {
+        active = editionLinkOnyx;
       }
       editionLinks.forEach(function (link) {
         if (!link) return;
@@ -197,7 +209,7 @@
 
     var revealTargets = Array.prototype.slice.call(
       document.querySelectorAll(
-        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition'
+        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition, .o-aperture__image, .o-text, .o-transition'
       )
     );
 

@@ -1,51 +1,76 @@
-# Saffron, Emerald, Maroon & Blue / Volume 112
+# Onyx, Saffron, Emerald, Maroon & Blue / Volume 112
 
 A quiet, single continuous-scroll digital editorial site by Dragan Andric,
-containing four colour-themed editions back to back. No galleries, no
-accounts, no forms — one calm scroll through all four.
+containing five colour-themed editions back to back. No galleries, no
+accounts, no forms — one calm scroll through all five.
 
 **Live site:** https://draganmiral-ai.github.io/blue-edition-volume-112/
 
 ## Concept
 
-**Saffron Edition / Volume 112** opens the site: a poetic single-image essay
-built from one photograph — a city intersection at a red light, sunset
-breaking through a cloud-filled sky — and one poem, "To My Imaginary Lover."
-Where every other edition is a photographic sequence, Saffron is deliberately
-distilled to a single visual anchor and a literary unfolding: the road says
-stop, the sky says promise. The poem unfolds across seven quiet chapters,
-crops of the same photograph reframing it each time, before a colour-handover
-transition carries the visitor into **Emerald Edition / Volume 112**: a
-cinematic visual essay about preserving an inner centre while ordinary life
-moves, blurs, and accelerates around it. Rain, motion blur, reflective metal,
-and city light carry the visitor through external movement, while six short
-reflective fragments — never explaining themselves — mark the moments where
-the external noise gives way to something steadier. It closes on a single
-wordless walking photograph, then a second transition carries the visitor
+**Onyx Edition / Volume 112** opens the site: a four-image nocturne about a
+day spent at home, held by a small dark room while a fire kept burning on a
+screen. It is deliberately the shortest edition — four photographs, three
+short reflective fragments, nothing more — treated as a four-movement
+chamber piece rather than padded out to match the others. Each chapter after
+the cover emerges through **the Aperture**: the photograph begins clipped to
+a narrow vertical slit, as if the eye is still adjusting to a dark room, and
+widens open as the visitor scrolls into it. A colour-handover transition —
+the last candle flame warming into a horizon — carries the visitor into
+**Saffron Edition / Volume 112**: a poetic single-image essay built from one
+photograph — a city intersection at a red light, sunset breaking through a
+cloud-filled sky — and one poem, "To My Imaginary Lover." The poem unfolds
+across seven quiet chapters, crops of the same photograph reframing it each
+time, before a second colour-handover transition carries the visitor into
+**Emerald Edition / Volume 112**: a cinematic visual essay about preserving
+an inner centre while ordinary life moves, blurs, and accelerates around it.
+Six short reflective fragments — never explaining themselves — mark the
+moments where the external noise gives way to something steadier, closing on
+a single wordless walking photograph. A third transition carries the visitor
 into **Maroon Edition / Volume 112**: a fashion-magazine-inspired editorial
-study in maroon, burgundy, oxblood, cream, and gold, moving through personal
-objects, jewellery, movement, and private spaces, pausing on a dedicated
+study in maroon, burgundy, oxblood, cream, and gold, pausing on a dedicated
 Persian-inspired prayer interlude, then closing on its own single wordless
-photograph. A third transition carries the visitor into **Blue Edition /
+photograph. A fourth transition carries the visitor into **Blue Edition /
 Volume 112**, a photo-book paced study in navy, cobalt, ivory, and concrete
 across five plates and a closing colophon.
 
-Each edition is deliberately distinct in feel — Saffron is luminous, spacious,
-and literary; Emerald is dark, kinetic, and reflective; Maroon is tactile,
-layered, and magazine-led; Blue is spacious, architectural, and restrained —
-but all four share the same craftsmanship, typographic discipline, and
-editorial restraint. Saffron, Emerald, and Maroon each use their own isolated
-CSS namespace and colour variables (`s-`/`--s-*`, `e-`/`--e-*`, and
-`m-`/`--m-*` respectively) so none can regress the others' design.
+Each edition is deliberately distinct in feel — Onyx is dark, still, and
+concentrated; Saffron is luminous, spacious, and literary; Emerald is dark,
+kinetic, and reflective; Maroon is tactile, layered, and magazine-led; Blue
+is spacious, architectural, and restrained — but all five share the same
+craftsmanship, typographic discipline, and editorial restraint. Onyx,
+Saffron, Emerald, and Maroon each use their own isolated CSS namespace and
+colour variables (`o-`/`--o-*`, `s-`/`--s-*`, `e-`/`--e-*`, and `m-`/`--m-*`
+respectively) so none can regress the others' design.
 
 All visible text on the site is either the approved title/credit for each
 edition, wording that already appears inside the photographs themselves
-(`STAY STRONG`, the handwritten blessing, `THE FOUNTAINS`, `BELIEVE`, `KEEP
-FAITH`), the Saffron poem (see below), or — for Emerald only — six short
-approved reflective sentences. No promotional copy, captions, or dedications
-were added — the final photograph of both Emerald and Maroon is intentionally
-left completely wordless, and Saffron carries no copy beyond its title and
-the poem itself.
+(the Onyx cover's embedded title and closing line, `STAY STRONG`, the
+handwritten blessing, `THE FOUNTAINS`, `BELIEVE`, `KEEP FAITH`), the Saffron
+poem, or — for Onyx and Emerald — a small number of approved reflective
+sentences. No promotional copy, captions, or dedications were added — the
+final photograph of Onyx, Emerald, and Maroon is intentionally left
+completely wordless, and Saffron carries no copy beyond its title and the
+poem itself.
+
+### The Aperture (Onyx)
+
+Onyx's signature visual device: each of its three chapter images (not the
+cover, whose title is embedded in the photo) starts clipped by CSS
+`clip-path: inset()` to a narrow vertical slit and widens to the full image
+as it scrolls into view, via the same progressive-enhancement
+`.js-reveal-armed`/`.is-revealed` mechanism every other edition's reveal
+uses. Fully visible immediately with JavaScript disabled or reduced motion
+enabled — see `.o-aperture__image` in `assets/css/style.css`.
+
+### Onyx reflective text
+
+Exactly three fragments, each appearing once:
+
+1. *Something remained lit behind the quiet.* — beside the reflection image
+2. *The language gathered in the dark.* — beside the laptop image
+3. *A little flame was enough.* — its own brief pause before the final,
+   wordless candle photograph
 
 ### The Saffron poem
 
@@ -78,7 +103,7 @@ change, gives the reflective text fragments something to align to, and
 during the closing transition gradually hands off its colour from emerald to
 burgundy as the edition changes.
 
-### Reflective text placement (Emerald)
+### Emerald reflective text placement
 
 The six approved sentences appear exactly once each, in this order:
 
@@ -98,15 +123,16 @@ tooling required.
 
 - Responsive `<picture>` markup with WebP + JPEG sources and width-based
   `srcset`/`sizes`
-- CSS custom properties for four isolated colour systems (Blue's original
-  variables, plus separate `--m-*`, `--e-*`, and `--s-*` sets each sampled
-  from their own photographs)
+- CSS custom properties for five isolated colour systems (Blue's original
+  variables, plus separate `--m-*`, `--e-*`, `--s-*`, and `--o-*` sets each
+  sampled from their own photographs)
 - A small vanilla JS file handling: reading-progress bar, "return to top"
-  button, a fixed edition index (`01 Saffron` / `02 Emerald` / `03 Maroon` /
-  `04 Blue`) with keyboard- and screen-reader-accessible current-edition
-  state, optional arrow-key navigation between plates/spreads, a
-  progressive-enhancement reveal-on-scroll for Saffron, Emerald, and Maroon
-  imagery, a subtle desktop-only parallax on Blue's plates, and a masthead
+  button, a fixed edition index (`01 Onyx` / `02 Saffron` / `03 Emerald` /
+  `04 Maroon` / `05 Blue`) with keyboard- and screen-reader-accessible
+  current-edition state, optional arrow-key navigation between
+  plates/spreads, a progressive-enhancement reveal-on-scroll for Onyx,
+  Saffron, Emerald, and Maroon imagery (including Onyx's Aperture clip-path
+  reveal), a subtle desktop-only parallax on Blue's plates, and a masthead
   auto-fit safety net that measures each oversized title word (including
   Emerald's vertical one) against its box and shrinks it if a given device's
   font metrics would otherwise clip it — all reduced-motion aware
@@ -130,6 +156,8 @@ There is no build step — `index.html` is the deployable site as-is.
 ## Image assets
 
 - `assets/images/originals/` — all source photographs, unmodified:
+  - Onyx: `onyx-convalescence-cover`, `onyx-reflection`, `onyx-language`,
+    `onyx-flame`
   - Saffron: `saffron-red-light-sky` (single image, reused with different
     CSS crops across the edition's chapters)
   - Emerald: `emerald-elevator-cover`, `emerald-sprinklers`,
@@ -172,15 +200,25 @@ There is no build step — `index.html` is the deployable site as-is.
      `.s-poem__image` modifier classes (`--sky`, `--upward`, `--full`)
      controlling the crop/aspect-ratio — there is nothing to reorder unless
      a second Saffron photograph is added in the future.
+   - Onyx: each `<section class="o-aperture o-aperture--*">` is independent
+     — reorder the same way. The cover's embedded title/closing line must
+     never be duplicated as overlaid HTML text, and the wordless
+     `<section class="o-aperture o-finale">` must keep no caption or
+     overlaid text by design.
 4. Update the `alt` text to accurately describe the new image.
 
-### Editing the reflective text (Emerald)
+### Editing the reflective text (Onyx / Emerald)
 
-The six Emerald sentences live as plain `<p class="e-text ...">` elements
-inside `index.html`, each with a modifier class (`e-text--sequence`,
-`e-text--leaves`, `e-text--believe`, `e-text--keepfaith`, `e-final-text`)
-controlling its placement. Only the six approved sentences should be used —
-do not add, paraphrase, or duplicate them elsewhere on the page.
+The Onyx and Emerald sentences live as plain `<p class="o-text ...">` /
+`<p class="e-text ...">` elements inside `index.html`. Only the approved
+sentences for each edition should be used — do not add, paraphrase, or
+duplicate them elsewhere on the page.
+
+### How the Aperture works (Onyx)
+
+See "The Aperture" above. To retune the reveal width, adjust the
+`clip-path: inset()` values on `.js-reveal-armed .o-aperture__image` (and
+its mobile override) in `assets/css/style.css`.
 
 ### How the Emerald Line works
 
@@ -190,13 +228,14 @@ rather than editing individual section rules.
 
 ### Adding a future colour edition
 
-Follow the Saffron, Emerald, or Maroon pattern rather than Blue's: give the
-new edition its own CSS variable prefix (e.g. `--g-*` for a green edition)
-and its own class namespace (`g-cover`, `g-spread`, …) so it cannot regress
-the existing editions, add its own entry to the `<nav class="edition-index">`
-list (updating the numbering for every entry), and insert its markup, in
-scroll order, as the new first child inside the shared `<main id="main">` if
-it should lead the site, or wherever in the sequence it belongs otherwise.
+Follow the Onyx, Saffron, Emerald, or Maroon pattern rather than Blue's: give
+the new edition its own CSS variable prefix (e.g. `--g-*` for a green
+edition) and its own class namespace (`g-cover`, `g-spread`, …) so it cannot
+regress the existing editions, add its own entry to the
+`<nav class="edition-index">` list (updating the numbering for every entry),
+and insert its markup, in scroll order, as the new first child inside the
+shared `<main id="main">` if it should lead the site, or wherever in the
+sequence it belongs otherwise.
 
 ## Deployment (GitHub Pages)
 
