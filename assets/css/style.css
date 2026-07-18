@@ -64,6 +64,20 @@
   --o-antique-gold: #a8823a;
   --o-firelight-amber: #d68a4a;
 
+  /* Pink Edition — no photographs, built entirely from colour/type/light, isolated from the palettes above */
+  --p-pearl: #f7eeea;
+  --p-warm-white: #fffaf7;
+  --p-blush: #fbe4e2;
+  --p-rosewater: #f6d3d6;
+  --p-ballet: #f2b8c6;
+  --p-petal: #e895ab;
+  --p-dusty-rose: #d98fa3;
+  --p-raspberry: #b23a5c;
+  --p-hot-pink: #d1447a;
+  --p-deep-rose: #7a2340;
+  --p-gold: #c9a15a;
+  --p-ink: #3a2430;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
   --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
@@ -276,7 +290,8 @@ button:focus-visible {
   .cover__word,
   .m-cover__word,
   .e-cover__word,
-  .s-cover__word {
+  .s-cover__word,
+  .p-cover__word {
     animation: none;
     opacity: 1;
     filter: none;
@@ -585,7 +600,8 @@ button:focus-visible {
   .e-spread,
   .e-sequence,
   .s-poem,
-  .o-aperture {
+  .o-aperture,
+  .p-section {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
   }
@@ -796,7 +812,10 @@ button:focus-visible {
 .js-reveal-armed .s-title__word,
 .js-reveal-armed .s-transition,
 .js-reveal-armed .o-text,
-.js-reveal-armed .o-transition {
+.js-reveal-armed .o-transition,
+.js-reveal-armed .p-text,
+.js-reveal-armed .p-statement,
+.js-reveal-armed .p-transition {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
@@ -805,7 +824,8 @@ button:focus-visible {
 .js-reveal-armed .m-transition,
 .js-reveal-armed .e-transition,
 .js-reveal-armed .s-transition,
-.js-reveal-armed .o-transition {
+.js-reveal-armed .o-transition,
+.js-reveal-armed .p-transition {
   transform: none;
 }
 
@@ -823,7 +843,10 @@ button:focus-visible {
 .js-reveal-armed .s-title__word.is-revealed,
 .js-reveal-armed .s-transition.is-revealed,
 .js-reveal-armed .o-text.is-revealed,
-.js-reveal-armed .o-transition.is-revealed {
+.js-reveal-armed .o-transition.is-revealed,
+.js-reveal-armed .p-text.is-revealed,
+.js-reveal-armed .p-statement.is-revealed,
+.js-reveal-armed .p-transition.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2086,6 +2109,414 @@ button:focus-visible {
 
 @media (max-width: 640px) {
   .o-transition {
+    height: clamp(26vh, 38vh, 42vh);
+  }
+}
+
+/* =====================================================================
+   PINK EDITION / VOLUME 112 — no photographs; built entirely from colour,
+   typography, translucent layers, and light, isolated from every palette
+   above via the p- prefix. Internal direction: THE WORLD BLUSHES BACK
+   (not displayed on the page).
+   ===================================================================== */
+
+.p-edition {
+  position: relative;
+  background: var(--p-pearl);
+}
+
+/* ---------- the Living Light: a small warm point, present throughout ---------- */
+
+.p-light-track {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  pointer-events: none;
+  z-index: 6;
+}
+
+.p-light {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--p-warm-white) 0%, var(--p-hot-pink) 45%, transparent 74%);
+  box-shadow: 0 0 18px 6px rgba(209, 68, 122, 0.32), 0 0 4px 1px var(--p-gold);
+  opacity: 0;
+  transform: translate(calc(-50% + var(--p-light-dx, 0px)), calc(-50% + var(--p-light-dy, 0px)));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .p-light {
+    transition: opacity 1.4s var(--ease-editorial), left 1.8s var(--ease-editorial),
+      top 1.8s var(--ease-editorial), transform 0.6s var(--ease-editorial);
+  }
+}
+
+.p-light-track.at-cover .p-light {
+  left: 64%;
+  top: 32%;
+  opacity: 0.55;
+}
+.p-light-track.at-arrives .p-light {
+  opacity: 0;
+}
+.p-light-track.at-effect .p-light {
+  left: 22%;
+  top: 62%;
+  opacity: 0.4;
+}
+.p-light-track.at-tinkerbell .p-light {
+  left: 68%;
+  top: 42%;
+  width: 14px;
+  height: 14px;
+  opacity: 0.9;
+}
+.p-light-track.at-centre .p-light,
+.p-light-track.at-letter .p-light {
+  opacity: 0;
+}
+.p-light-track.at-blush .p-light {
+  left: 46%;
+  top: 38%;
+  opacity: 0.6;
+}
+.p-light-track.at-transition .p-light {
+  left: 50%;
+  top: 46%;
+  opacity: 0.5;
+}
+
+.p-light.is-touched {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .p-light.is-touched {
+    transition: opacity 0.5s var(--ease-editorial);
+  }
+}
+
+/* ---------- shared translucent bloom layers ---------- */
+
+.p-bloom {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  opacity: 0.55;
+  z-index: 0;
+}
+
+@media (max-width: 640px) {
+  .p-bloom {
+    filter: blur(26px);
+    opacity: 0.4;
+  }
+}
+
+/* ---------- shared reflective text ---------- */
+
+.p-text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--p-ink);
+  max-width: 26ch;
+}
+
+/* ---------- Section 1 — the almost colourless opening ---------- */
+
+.p-cover {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vh, 4.5rem);
+  background: var(--p-pearl);
+  overflow: hidden;
+  padding: clamp(2rem, 6vh, 4rem) 1.5rem;
+  text-align: center;
+}
+
+.p-bloom--cover {
+  width: 42vw;
+  height: 42vw;
+  max-width: 480px;
+  max-height: 480px;
+  top: 8%;
+  right: -12%;
+  background: radial-gradient(circle, var(--p-blush) 0%, transparent 70%);
+}
+
+.p-cover__masthead {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.p-cover__word {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);
+  letter-spacing: 0.05em;
+  color: var(--p-ink);
+  opacity: 0;
+  filter: blur(6px);
+  animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
+}
+
+.p-cover__meta {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.68rem, 1.3vw, 0.85rem);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--p-dusty-rose);
+}
+
+.p-text--first {
+  font-style: italic;
+  color: var(--p-dusty-rose);
+}
+
+/* ---------- Section 2 — pink arrives ---------- */
+
+.p-section--arrives {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-blush);
+  overflow: hidden;
+  padding: clamp(3rem, 8vh, 6rem) clamp(1.25rem, 6vw, 4rem);
+}
+
+.p-fragment-letter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: clamp(14rem, 55vw, 40rem);
+  line-height: 1;
+  color: rgba(178, 58, 92, 0.08);
+  user-select: none;
+  z-index: 0;
+}
+
+@media (max-width: 640px) {
+  .p-fragment-letter {
+    font-size: clamp(9rem, 72vw, 18rem);
+  }
+}
+
+.p-bloom--arrives {
+  width: 56vw;
+  height: 56vw;
+  max-width: 620px;
+  max-height: 620px;
+  bottom: -16%;
+  left: -12%;
+  background: radial-gradient(circle, var(--p-rosewater) 0%, transparent 72%);
+}
+
+.p-statement {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  max-width: 20ch;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.25;
+  color: var(--p-ink);
+}
+
+.p-statement em {
+  font-style: normal;
+  color: var(--p-raspberry);
+}
+
+/* ---------- Section 3 — her effect on the world ---------- */
+
+.p-section--effect {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(3rem, 10vh, 6rem);
+  background: var(--p-rosewater);
+  overflow: hidden;
+  padding: clamp(4rem, 12vh, 7rem) clamp(1.25rem, 6vw, 4rem);
+}
+
+.p-bloom--effect {
+  width: 62vw;
+  height: 62vw;
+  max-width: 700px;
+  max-height: 700px;
+  top: 18%;
+  right: -16%;
+  background: radial-gradient(circle, var(--p-ballet) 0%, transparent 74%);
+}
+
+.p-text--effect-a {
+  align-self: flex-start;
+  margin-left: clamp(0.5rem, 6vw, 4rem);
+}
+.p-text--effect-b {
+  align-self: center;
+}
+.p-text--effect-c {
+  align-self: flex-end;
+  margin-right: clamp(0.5rem, 6vw, 4rem);
+}
+.p-text--effect-d {
+  align-self: center;
+}
+
+@media (max-width: 640px) {
+  .p-text--effect-a,
+  .p-text--effect-c {
+    align-self: center;
+    margin-left: 0;
+    margin-right: 0;
+    text-align: center;
+  }
+}
+
+/* ---------- Section 4 — the small living light (Tinkerbell moment) ---------- */
+
+.p-section--tinkerbell {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-ballet);
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
+}
+
+.p-text--tinkerbell {
+  text-align: center;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.4vw, 1.6rem);
+}
+
+/* ---------- Section 5 — the emotional centre ---------- */
+
+.p-section--centre {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-deep-rose);
+  padding: clamp(4rem, 12vh, 7rem) 1.5rem;
+}
+
+.p-text--centre {
+  text-align: center;
+  max-width: 32ch;
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
+  line-height: 1.85;
+  color: var(--p-warm-white);
+}
+
+/* ---------- Section 6 — the love letter ---------- */
+
+.p-section--letter {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-petal);
+  padding: clamp(4rem, 12vh, 7rem) 1.5rem;
+}
+
+.p-text--letter {
+  text-align: center;
+  max-width: 28ch;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  line-height: 1.8;
+}
+
+/* ---------- Section 7 — the final blush ---------- */
+
+.p-section--blush {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--p-pearl);
+  padding: clamp(3rem, 8vh, 6rem) 1.5rem;
+}
+
+.p-text--final {
+  text-align: center;
+  max-width: 22ch;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+}
+
+/* ---- Pink → Onyx transition : the light is kept, not extinguished ---- */
+
+.p-transition {
+  position: relative;
+  height: clamp(34vh, 50vh, 60vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--p-pearl) 0%,
+    var(--p-blush) 20%,
+    var(--p-dusty-rose) 42%,
+    var(--o-charcoal) 66%,
+    var(--o-onyx) 100%
+  );
+}
+
+.p-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.12;
+  user-select: none;
+}
+
+.p-transition__letter--p {
+  top: 3%;
+  font-family: var(--font-serif);
+  color: var(--p-raspberry);
+}
+
+.p-transition__letter--o {
+  bottom: 3%;
+  font-family: var(--font-sans);
+  color: var(--o-bone-ivory);
+}
+
+@media (max-width: 640px) {
+  .p-transition {
     height: clamp(26vh, 38vh, 42vh);
   }
 }

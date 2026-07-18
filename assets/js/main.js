@@ -7,7 +7,7 @@
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
     document.querySelectorAll(
-      '.o-cover, .o-aperture, .s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
+      '.p-cover, .p-section, .o-cover, .o-aperture, .s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
     )
   );
 
@@ -16,16 +16,19 @@
   }
 
   var ticking = false;
+  var onyxCover = document.getElementById('o-cover');
   var saffronCover = document.getElementById('s-cover');
   var emeraldCover = document.getElementById('e-cover');
   var maroonCover = document.getElementById('m-cover');
   var blueCover = document.getElementById('cover');
+  var editionLinkPink = document.getElementById('editionLinkPink');
   var editionLinkOnyx = document.getElementById('editionLinkOnyx');
   var editionLinkSaffron = document.getElementById('editionLinkSaffron');
   var editionLinkEmerald = document.getElementById('editionLinkEmerald');
   var editionLinkMaroon = document.getElementById('editionLinkMaroon');
   var editionLinkBlue = document.getElementById('editionLinkBlue');
   var editionLinks = [
+    editionLinkPink,
     editionLinkOnyx,
     editionLinkSaffron,
     editionLinkEmerald,
@@ -52,10 +55,12 @@
     }
 
     if (
+      onyxCover &&
       saffronCover &&
       emeraldCover &&
       maroonCover &&
       blueCover &&
+      editionLinkPink &&
       editionLinkOnyx &&
       editionLinkSaffron &&
       editionLinkEmerald &&
@@ -72,8 +77,10 @@
         active = editionLinkEmerald;
       } else if (saffronCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkSaffron;
-      } else {
+      } else if (onyxCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkOnyx;
+      } else {
+        active = editionLinkPink;
       }
       editionLinks.forEach(function (link) {
         if (!link) return;
@@ -209,7 +216,7 @@
 
     var revealTargets = Array.prototype.slice.call(
       document.querySelectorAll(
-        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition, .o-aperture__image, .o-text, .o-transition'
+        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition, .o-aperture__image, .o-text, .o-transition, .p-text, .p-statement, .p-transition'
       )
     );
 
@@ -257,7 +264,7 @@
   }
 
   var mastheadWords = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word, .s-cover__word')
+    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word, .s-cover__word, .p-cover__word')
   );
 
   function fitAllMastheads() {
@@ -280,4 +287,125 @@
     },
     { passive: true }
   );
+
+  // Pink Edition: the Living Light — a small warm point of light present
+  // throughout the edition. Its resting position per chapter is driven by
+  // a class on the sticky track (set via IntersectionObserver, so it works
+  // identically on touch and desktop — a "predetermined path"). On fine
+  // pointers only, a small additional offset nudges it gently toward the
+  // cursor; a gentle tap on the Tinkerbell chapter gives it one brief pulse.
+  // None of this gates the text, which reveals automatically regardless.
+  var pLightTrack = document.querySelector('.p-light-track');
+  var pLight = document.getElementById('pLight');
+
+  if (pLightTrack && 'IntersectionObserver' in window) {
+    var lightChapters = [
+      { id: 'p-cover', state: 'at-cover' },
+      { id: 'p-arrives', state: 'at-arrives' },
+      { id: 'p-effect', state: 'at-effect' },
+      { id: 'p-tinkerbell', state: 'at-tinkerbell' },
+      { id: 'p-centre', state: 'at-centre' },
+      { id: 'p-letter', state: 'at-letter' },
+      { id: 'p-blush', state: 'at-blush' },
+      { id: 'p-transition', state: 'at-transition' }
+    ];
+
+    var lightStates = lightChapters.map(function (c) {
+      return c.state;
+    });
+
+    var lightObserver = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var match = lightChapters.filter(function (c) {
+            return document.getElementById(c.id) === entry.target;
+          })[0];
+          if (!match) return;
+          lightStates.forEach(function (state) {
+            pLightTrack.classList.remove(state);
+          });
+          pLightTrack.classList.add(match.state);
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    lightChapters.forEach(function (c) {
+      var el = document.getElementById(c.id);
+      if (el) lightObserver.observe(el);
+    });
+  }
+
+  if (pLight && !reduceMotion) {
+    var supportsFinePointer = window.matchMedia('(pointer: fine)').matches;
+
+    if (supportsFinePointer) {
+      var targetDx = 0;
+      var targetDy = 0;
+      var currentDx = 0;
+      var currentDy = 0;
+      var pointerTicking = false;
+      var pEditionVisible = false;
+      var easingActive = false;
+
+      window.addEventListener(
+        'mousemove',
+        function (event) {
+          if (pointerTicking) return;
+          pointerTicking = true;
+          window.requestAnimationFrame(function () {
+            var vw = window.innerWidth;
+            var vh = window.innerHeight;
+            targetDx = ((event.clientX - vw / 2) / vw) * 24;
+            targetDy = ((event.clientY - vh / 2) / vh) * 24;
+            pointerTicking = false;
+          });
+        },
+        { passive: true }
+      );
+
+      // Only run the continuous easing loop while Pink Edition is actually
+      // in view, so this doesn't become a forever-running animation loop
+      // for the rest of the page's lifetime after the visitor scrolls on.
+      function easeLight() {
+        if (!pEditionVisible) {
+          easingActive = false;
+          return;
+        }
+        currentDx += (targetDx - currentDx) * 0.05;
+        currentDy += (targetDy - currentDy) * 0.05;
+        pLight.style.setProperty('--p-light-dx', currentDx.toFixed(1) + 'px');
+        pLight.style.setProperty('--p-light-dy', currentDy.toFixed(1) + 'px');
+        window.requestAnimationFrame(easeLight);
+      }
+
+      var pEdition = document.getElementById('p-edition');
+      if (pEdition && 'IntersectionObserver' in window) {
+        new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            pEditionVisible = entry.isIntersecting;
+            if (pEditionVisible && !easingActive) {
+              easingActive = true;
+              window.requestAnimationFrame(easeLight);
+            }
+          });
+        }).observe(pEdition);
+      }
+    }
+
+    var tinkerbellSection = document.getElementById('p-tinkerbell');
+    if (tinkerbellSection) {
+      tinkerbellSection.addEventListener(
+        'pointerdown',
+        function () {
+          pLight.classList.add('is-touched');
+          window.setTimeout(function () {
+            pLight.classList.remove('is-touched');
+          }, 700);
+        },
+        { passive: true }
+      );
+    }
+  }
 })();

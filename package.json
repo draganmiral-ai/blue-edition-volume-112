@@ -2,7 +2,7 @@
   "name": "blue-edition-volume-112",
   "version": "1.0.0",
   "private": true,
-  "description": "Onyx, Saffron, Emerald, Maroon & Blue / Volume 112 — a continuous editorial colour study by Dragan Andric.",
+  "description": "Pink, Onyx, Saffron, Emerald, Maroon & Blue / Volume 112 — a continuous editorial colour study by Dragan Andric.",
   "scripts": {
     "dev": "python3 -m http.server 4173",
     "start": "python3 -m http.server 4173"
