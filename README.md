@@ -231,17 +231,25 @@ a static-texture look, reusing the `texture` special case) and one
 
 ### The Ambient Audio system
 
-A reusable, strictly opt-in ambience system, off by default and never
-autoplaying. `AUDIO_CONFIG` in `assets/js/main.js` holds one entry per
-edition (`src`, `volume`, `loop`, `fadeMs`, `enabled`); `initAmbientAudio()`
-checks whether *any* edition has a real, enabled track configured, and if
-none do, it does not insert a toggle button at all — no broken or
-non-functional control ever ships. When at least one track is configured,
-a small toggle appears (`.ambient-audio-toggle`) only after the visitor's
-first genuine interaction (scroll, click, or key press), stays off until
-they explicitly turn it on, and cross-fades between edition tracks as the
-visitor scrolls (reusing the same active-edition tracking that drives the
-edition index highlighting).
+A reusable, strictly opt-in ambience system that never plays before the
+visitor has done something on the page. `AUDIO_CONFIG` in
+`assets/js/main.js` holds one entry per edition (`src`, `volume`, `loop`,
+`fadeMs`, `enabled`); `initAmbientAudio()` checks whether *any* edition has
+a real, enabled track configured, and if none do, it does not insert a
+toggle button at all — no broken or non-functional control ever ships.
+When at least one track is configured, a small toggle
+(`.ambient-audio-toggle`) appears the moment the visitor first interacts
+with the page (scroll, click, or key press), and `attemptAutoStart()` tries
+to start playback right then so it feels automatic rather than requiring a
+button press. Whether that succeeds depends on the browser: a real click
+or key press counts as a "user gesture" everywhere and lets it start
+immediately; a plain scroll does *not* count in Chrome's autoplay policy,
+so if the visitor's first action is only scrolling, playback is silently
+skipped and the (now-visible) toggle remains a guaranteed one-click way to
+start it — never a broken or misleading "on" state. Once playing, it
+cross-fades between edition tracks as the visitor scrolls (reusing the
+same active-edition tracking that drives the edition index highlighting),
+and the toggle can pause/resume it at any time.
 
 **Current status:** active. Four tracks live in `assets/audio/` — Periwinkle,
 Pink, Onyx, and Saffron each have their own; Emerald, Maroon, and Blue reuse

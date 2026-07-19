@@ -651,6 +651,15 @@
       }, 40);
     }
 
+    function loadAndPlay(cfg) {
+      audioEl.src = cfg.src;
+      audioEl.setAttribute('data-loaded-src', cfg.src);
+      audioEl.loop = cfg.loop !== false;
+      audioEl.volume = 0;
+      audioEl.play().catch(function () {});
+      fadeTo(cfg.volume != null ? cfg.volume : 0.3, cfg.fadeMs || 1500);
+    }
+
     function applyEdition(editionKey) {
       if (!isEnabled) return;
       var cfg = AUDIO_CONFIG[editionKey];
@@ -660,26 +669,33 @@
         });
         return;
       }
-      if (audioEl.getAttribute('data-loaded-src') !== cfg.src) {
+      var isSameTrack = audioEl.getAttribute('data-loaded-src') === cfg.src;
+      if (!isSameTrack) {
         fadeTo(0, 600, function () {
-          audioEl.src = cfg.src;
-          audioEl.setAttribute('data-loaded-src', cfg.src);
-          audioEl.loop = cfg.loop !== false;
-          audioEl.volume = 0;
-          audioEl.play().catch(function () {});
-          fadeTo(cfg.volume != null ? cfg.volume : 0.3, cfg.fadeMs || 1500);
+          loadAndPlay(cfg);
         });
+      } else if (audioEl.paused) {
+        // Same track already loaded but stopped (e.g. the visitor paused it
+        // via the toggle, then turned it back on) — just resume, no reload.
+        audioEl.volume = 0;
+        audioEl.play().catch(function () {});
+        fadeTo(cfg.volume != null ? cfg.volume : 0.3, cfg.fadeMs || 1500);
       }
     }
 
+    function setToggleState(on) {
+      isEnabled = on;
+      toggle.setAttribute('aria-pressed', String(on));
+      toggle.classList.toggle('is-on', on);
+      toggle.setAttribute('aria-label', on ? 'Pause ambient sound' : 'Play ambient sound');
+    }
+
     toggle.addEventListener('click', function () {
-      isEnabled = !isEnabled;
-      toggle.setAttribute('aria-pressed', String(isEnabled));
-      toggle.classList.toggle('is-on', isEnabled);
-      toggle.setAttribute('aria-label', isEnabled ? 'Pause ambient sound' : 'Play ambient sound');
-      if (isEnabled) {
+      if (!isEnabled) {
+        setToggleState(true);
         applyEdition(lastActiveEditionKey);
       } else {
+        setToggleState(false);
         var cfg = AUDIO_CONFIG[lastActiveEditionKey];
         fadeTo(0, (cfg && cfg.fadeMs) || 800, function () {
           audioEl.pause();
@@ -687,11 +703,37 @@
       }
     });
 
-    function revealToggle() {
+    // Try to start ambient sound the moment the visitor first does anything
+    // at all (scroll, click, key press), so it feels automatic rather than
+    // requiring them to find and press a button. Browsers only allow audio
+    // to actually start from a "real" gesture (a click or key press) — a
+    // plain scroll does not count in Chrome, so on scroll this attempt is
+    // silently rejected and the (now-visible) toggle remains a guaranteed,
+    // one-click fallback. Never reflects an "on" state unless playback
+    // genuinely started.
+    function attemptAutoStart() {
       toggle.classList.add('is-visible');
+      if (isEnabled) return;
+      var cfg = AUDIO_CONFIG[lastActiveEditionKey];
+      if (!cfg || !cfg.enabled || !cfg.src) return;
+      audioEl.src = cfg.src;
+      audioEl.setAttribute('data-loaded-src', cfg.src);
+      audioEl.loop = cfg.loop !== false;
+      audioEl.volume = 0;
+      var playPromise = audioEl.play();
+      if (playPromise && playPromise.then) {
+        playPromise
+          .then(function () {
+            setToggleState(true);
+            fadeTo(cfg.volume != null ? cfg.volume : 0.3, cfg.fadeMs || 1500);
+          })
+          .catch(function () {
+            audioEl.pause();
+          });
+      }
     }
     ['pointerdown', 'keydown', 'scroll'].forEach(function (evt) {
-      window.addEventListener(evt, revealToggle, { once: true, passive: true });
+      window.addEventListener(evt, attemptAutoStart, { once: true, passive: true });
     });
 
     activeEditionListeners.push(applyEdition);
