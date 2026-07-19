@@ -7,7 +7,7 @@
   var yearEl = document.getElementById('year');
   var sections = Array.prototype.slice.call(
     document.querySelectorAll(
-      '.p-cover, .p-section, .o-cover, .o-aperture, .s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
+      '.pw-cover, .pw-hero, .pw-poem, .pw-gallery, .pw-truth, .pw-ending, .p-cover, .p-section, .o-cover, .o-aperture, .s-cover, .s-title, .s-poem, .e-cover, .e-sequence, .e-spread, .e-finale, .m-cover, .m-spread, .m-interlude, .m-finale, .cover, .plate, .colophon'
     )
   );
 
@@ -21,6 +21,9 @@
   var emeraldCover = document.getElementById('e-cover');
   var maroonCover = document.getElementById('m-cover');
   var blueCover = document.getElementById('cover');
+  var pinkCover = document.getElementById('p-cover');
+  var periwinkleCover = document.getElementById('pw-cover');
+  var editionLinkPeriwinkle = document.getElementById('editionLinkPeriwinkle');
   var editionLinkPink = document.getElementById('editionLinkPink');
   var editionLinkOnyx = document.getElementById('editionLinkOnyx');
   var editionLinkSaffron = document.getElementById('editionLinkSaffron');
@@ -28,6 +31,7 @@
   var editionLinkMaroon = document.getElementById('editionLinkMaroon');
   var editionLinkBlue = document.getElementById('editionLinkBlue');
   var editionLinks = [
+    editionLinkPeriwinkle,
     editionLinkPink,
     editionLinkOnyx,
     editionLinkSaffron,
@@ -35,6 +39,9 @@
     editionLinkMaroon,
     editionLinkBlue
   ];
+
+  var activeEditionListeners = [];
+  var lastActiveEditionKey = null;
 
   function updateOnScroll() {
     var doc = document.documentElement;
@@ -60,6 +67,9 @@
       emeraldCover &&
       maroonCover &&
       blueCover &&
+      periwinkleCover &&
+      pinkCover &&
+      editionLinkPeriwinkle &&
       editionLinkPink &&
       editionLinkOnyx &&
       editionLinkSaffron &&
@@ -79,8 +89,10 @@
         active = editionLinkSaffron;
       } else if (onyxCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkOnyx;
-      } else {
+      } else if (pinkCover.getBoundingClientRect().top <= threshold) {
         active = editionLinkPink;
+      } else {
+        active = editionLinkPeriwinkle;
       }
       editionLinks.forEach(function (link) {
         if (!link) return;
@@ -90,6 +102,14 @@
           link.removeAttribute('aria-current');
         }
       });
+
+      var activeKey = active && active.getAttribute('data-edition');
+      if (activeKey && activeKey !== lastActiveEditionKey) {
+        lastActiveEditionKey = activeKey;
+        activeEditionListeners.forEach(function (listener) {
+          listener(activeKey);
+        });
+      }
     }
 
     ticking = false;
@@ -216,7 +236,7 @@
 
     var revealTargets = Array.prototype.slice.call(
       document.querySelectorAll(
-        '.m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition, .o-aperture__image, .o-text, .o-transition, .p-text, .p-statement, .p-transition'
+        '.pw-text, .pw-poem__title, .pw-poem__stanza, .pw-truth__heading, .pw-truth__stanza, .pw-gallery__figure, .pw-hero__figure, .pw-ending__word, .pw-transition, .m-spread__figure, .m-interlude__figure, .m-finale__figure, .m-transition, .e-spread__figure, .e-sequence__frame, .e-finale__figure, .e-text, .e-transition, .s-poem__image, .s-poem__text, .s-title__word, .s-transition, .o-aperture__image, .o-text, .o-transition, .p-text, .p-statement, .p-transition'
       )
     );
 
@@ -264,7 +284,7 @@
   }
 
   var mastheadWords = Array.prototype.slice.call(
-    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word, .s-cover__word, .p-cover__word')
+    document.querySelectorAll('.m-cover__word, .cover__word, .e-cover__word, .s-cover__word, .p-cover__word, .pw-cover__word')
   );
 
   function fitAllMastheads() {
@@ -408,4 +428,274 @@
       );
     }
   }
+
+  // ---------------------------------------------------------------------
+  // Atmosphere System — a shared, config-driven, extremely subtle particle
+  // layer any edition can opt into via a `data-atmosphere` attribute on its
+  // wrapper. Adding a future edition's atmosphere means adding one entry to
+  // ATMOSPHERE_CONFIG, not writing new rendering code. Disabled entirely
+  // under prefers-reduced-motion (removes every particle, no static
+  // fallback needed — they are purely decorative and carry no content).
+  // ---------------------------------------------------------------------
+  var ATMOSPHERE_CONFIG = {
+    // Pink — very small soft sparkles, never glitter.
+    sparkle: {
+      count: 6,
+      colors: ['#d1447a', '#c9a15a'],
+      size: [2, 4],
+      duration: [6, 10],
+      driftX: [-10, 10],
+      driftY: [-70, -40],
+      peakOpacity: 0.6
+    },
+    // Onyx — tiny floating ember particles, warm amber, almost invisible.
+    ember: {
+      count: 5,
+      colors: ['#d68a4a'],
+      size: [2, 3],
+      duration: [10, 16],
+      driftX: [-8, 8],
+      driftY: [-90, -50],
+      peakOpacity: 0.5,
+      blur: 1
+    },
+    // Saffron — gentle warm floating light, like sunlight through dust.
+    'dust-light': {
+      count: 8,
+      colors: ['#c9a05e', '#f2ead9'],
+      size: [3, 6],
+      duration: [14, 22],
+      driftX: [20, 60],
+      driftY: [-10, 10],
+      peakOpacity: 0.4,
+      blur: 2
+    },
+    // Emerald — very slow floating botanical shadows, barely visible.
+    'botanical-shadow': {
+      count: 4,
+      colors: ['rgba(20, 30, 20, 0.3)'],
+      size: [50, 90],
+      duration: [18, 26],
+      driftX: [-20, 20],
+      driftY: [10, 30],
+      peakOpacity: 0.35,
+      blur: 10,
+      blob: true
+    },
+    // Periwinkle — very soft floating dust (the single drifting petal is
+    // handled separately below, since it must never loop continuously).
+    dust: {
+      count: 10,
+      colors: ['#c3b6d6'],
+      size: [1.5, 3],
+      duration: [16, 24],
+      driftX: [-10, 10],
+      driftY: [-60, -30],
+      peakOpacity: 0.45,
+      blur: 1
+    }
+    // Maroon uses `texture` — a single CSS-only moving layer, not discrete
+    // particles — handled as a special case in createAtmosphereLayer below.
+    // Future editions (gold, rain, forest, snow, ocean, ash, mist) can be
+    // added here as plain config objects without touching the renderer.
+  };
+
+  function randomBetween(range) {
+    return range[0] + Math.random() * (range[1] - range[0]);
+  }
+
+  function createAtmosphereLayer(container, type) {
+    if (type === 'texture') {
+      var textureLayer = document.createElement('div');
+      textureLayer.className = 'atmosphere-texture';
+      textureLayer.setAttribute('aria-hidden', 'true');
+      container.appendChild(textureLayer);
+      return;
+    }
+
+    var config = ATMOSPHERE_CONFIG[type];
+    if (!config) return;
+
+    var layer = document.createElement('div');
+    layer.className = 'atmosphere-layer';
+    layer.setAttribute('aria-hidden', 'true');
+
+    for (var i = 0; i < config.count; i++) {
+      var particle = document.createElement('span');
+      particle.className = 'atmosphere-particle';
+      var size = randomBetween(config.size);
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.top = Math.random() * 100 + '%';
+      particle.style.background = config.colors[Math.floor(Math.random() * config.colors.length)];
+      if (config.blob) {
+        particle.style.borderRadius = '40% 60% 55% 45% / 55% 45% 60% 40%';
+      }
+      if (config.blur) {
+        particle.style.filter = 'blur(' + config.blur + 'px)';
+      }
+      particle.style.setProperty('--drift-x', randomBetween(config.driftX).toFixed(1) + 'px');
+      particle.style.setProperty('--drift-y', randomBetween(config.driftY).toFixed(1) + 'px');
+      particle.style.setProperty('--particle-duration', randomBetween(config.duration).toFixed(1) + 's');
+      particle.style.setProperty('--particle-delay', (-Math.random() * randomBetween(config.duration)).toFixed(1) + 's');
+      particle.style.setProperty('--particle-peak-opacity', config.peakOpacity);
+      layer.appendChild(particle);
+    }
+
+    container.appendChild(layer);
+  }
+
+  function initAtmosphere() {
+    if (reduceMotion) return;
+    var atmosphereHosts = Array.prototype.slice.call(document.querySelectorAll('[data-atmosphere]'));
+    atmosphereHosts.forEach(function (host) {
+      createAtmosphereLayer(host, host.getAttribute('data-atmosphere'));
+    });
+  }
+
+  initAtmosphere();
+
+  // Periwinkle's single drifting petal: never loops, appears at most once
+  // per visit, only while the edition is actually in view, and is skipped
+  // entirely under reduced motion (the CSS animation itself is already
+  // gated, this just avoids scheduling pointless work).
+  if (!reduceMotion) {
+    var pwPetal = document.getElementById('pwPetal');
+    var pwEdition = document.getElementById('pw-edition');
+    if (pwPetal && pwEdition && 'IntersectionObserver' in window) {
+      var petalHasRun = false;
+      var petalObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting && !petalHasRun) {
+              petalHasRun = true;
+              window.setTimeout(
+                function () {
+                  pwPetal.classList.add('is-drifting');
+                },
+                1500 + Math.random() * 4000
+              );
+              petalObserver.disconnect();
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+      petalObserver.observe(pwEdition);
+    }
+  }
+
+  // ---------------------------------------------------------------------
+  // Ambient Audio — reusable, strictly opt-in ambience, one optional track
+  // per edition. Never autoplays: the toggle stays hidden until the
+  // visitor's first genuine interaction, and even then starts silent until
+  // they choose to turn it on. If no edition has a track configured, the
+  // whole system stays dormant and never inserts a control — a future
+  // edition adds ambience by filling in one AUDIO_CONFIG entry with a real
+  // `src`, nothing else in this file needs to change.
+  // ---------------------------------------------------------------------
+  var AUDIO_CONFIG = {
+    periwinkle: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    pink: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    onyx: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    saffron: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    emerald: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    maroon: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
+    blue: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false }
+  };
+
+  function initAmbientAudio() {
+    var hasAnyTrack = Object.keys(AUDIO_CONFIG).some(function (key) {
+      var cfg = AUDIO_CONFIG[key];
+      return cfg && cfg.enabled && cfg.src;
+    });
+    if (!hasAnyTrack) return;
+
+    var toggle = document.createElement('button');
+    toggle.type = 'button';
+    toggle.className = 'ambient-audio-toggle';
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.setAttribute('aria-label', 'Play ambient sound');
+    toggle.innerHTML = '<span class="ambient-audio-toggle__icon" aria-hidden="true"></span>';
+    document.body.appendChild(toggle);
+
+    var audioEl = document.createElement('audio');
+    audioEl.preload = 'none';
+    audioEl.volume = 0;
+    document.body.appendChild(audioEl);
+
+    var isEnabled = false;
+    var fadeTimer = null;
+
+    function clearFade() {
+      if (fadeTimer) {
+        window.clearInterval(fadeTimer);
+        fadeTimer = null;
+      }
+    }
+
+    function fadeTo(targetVolume, duration, onComplete) {
+      clearFade();
+      var startVolume = audioEl.volume;
+      var steps = Math.max(1, Math.round(duration / 40));
+      var step = 0;
+      fadeTimer = window.setInterval(function () {
+        step += 1;
+        var progress = Math.min(1, step / steps);
+        audioEl.volume = startVolume + (targetVolume - startVolume) * progress;
+        if (progress >= 1) {
+          clearFade();
+          if (onComplete) onComplete();
+        }
+      }, 40);
+    }
+
+    function applyEdition(editionKey) {
+      if (!isEnabled) return;
+      var cfg = AUDIO_CONFIG[editionKey];
+      if (!cfg || !cfg.enabled || !cfg.src) {
+        fadeTo(0, 600, function () {
+          audioEl.pause();
+        });
+        return;
+      }
+      if (audioEl.getAttribute('data-loaded-src') !== cfg.src) {
+        fadeTo(0, 600, function () {
+          audioEl.src = cfg.src;
+          audioEl.setAttribute('data-loaded-src', cfg.src);
+          audioEl.loop = cfg.loop !== false;
+          audioEl.volume = 0;
+          audioEl.play().catch(function () {});
+          fadeTo(cfg.volume != null ? cfg.volume : 0.3, cfg.fadeMs || 1500);
+        });
+      }
+    }
+
+    toggle.addEventListener('click', function () {
+      isEnabled = !isEnabled;
+      toggle.setAttribute('aria-pressed', String(isEnabled));
+      toggle.classList.toggle('is-on', isEnabled);
+      toggle.setAttribute('aria-label', isEnabled ? 'Pause ambient sound' : 'Play ambient sound');
+      if (isEnabled) {
+        applyEdition(lastActiveEditionKey);
+      } else {
+        var cfg = AUDIO_CONFIG[lastActiveEditionKey];
+        fadeTo(0, (cfg && cfg.fadeMs) || 800, function () {
+          audioEl.pause();
+        });
+      }
+    });
+
+    function revealToggle() {
+      toggle.classList.add('is-visible');
+    }
+    ['pointerdown', 'keydown', 'scroll'].forEach(function (evt) {
+      window.addEventListener(evt, revealToggle, { once: true, passive: true });
+    });
+
+    activeEditionListeners.push(applyEdition);
+  }
+
+  initAmbientAudio();
 })();

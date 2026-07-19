@@ -3,44 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 — Dragan Andric</title>
-  <meta name="description" content="A continuous editorial colour study featuring Pink, Onyx, Saffron, Emerald, Maroon, and Blue Edition, Volume 112." />
+  <title>Periwinkle, Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 — Dragan Andric</title>
+  <meta name="description" content="A continuous editorial colour study featuring Periwinkle, Pink, Onyx, Saffron, Emerald, Maroon, and Blue Edition, Volume 112." />
   <meta name="color-scheme" content="dark" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <h1 class="visually-hidden">Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 &mdash; Dragan Andric</h1>
+  <h1 class="visually-hidden">Periwinkle, Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 &mdash; Dragan Andric</h1>
 
-  <a class="skip-link" href="#p-arrives">Skip to content</a>
+  <a class="skip-link" href="#pw-hero">Skip to content</a>
 
   <div class="progress" aria-hidden="true">
     <div class="progress__bar" id="progressBar"></div>
   </div>
 
   <nav class="edition-index" aria-label="Edition navigation" id="editionIndex">
-    <a href="#p-cover" class="edition-index__link" data-edition="pink" id="editionLinkPink">
+    <a href="#pw-cover" class="edition-index__link" data-edition="periwinkle" id="editionLinkPeriwinkle">
       <span class="edition-index__num" aria-hidden="true">01</span>
+      <span class="edition-index__name">Periwinkle</span>
+    </a>
+    <a href="#p-cover" class="edition-index__link" data-edition="pink" id="editionLinkPink">
+      <span class="edition-index__num" aria-hidden="true">02</span>
       <span class="edition-index__name">Pink</span>
     </a>
     <a href="#o-cover" class="edition-index__link" data-edition="onyx" id="editionLinkOnyx">
-      <span class="edition-index__num" aria-hidden="true">02</span>
+      <span class="edition-index__num" aria-hidden="true">03</span>
       <span class="edition-index__name">Onyx</span>
     </a>
     <a href="#s-cover" class="edition-index__link" data-edition="saffron" id="editionLinkSaffron">
-      <span class="edition-index__num" aria-hidden="true">03</span>
+      <span class="edition-index__num" aria-hidden="true">04</span>
       <span class="edition-index__name">Saffron</span>
     </a>
     <a href="#e-cover" class="edition-index__link" data-edition="emerald" id="editionLinkEmerald">
-      <span class="edition-index__num" aria-hidden="true">04</span>
+      <span class="edition-index__num" aria-hidden="true">05</span>
       <span class="edition-index__name">Emerald</span>
     </a>
     <a href="#m-cover" class="edition-index__link" data-edition="maroon" id="editionLinkMaroon">
-      <span class="edition-index__num" aria-hidden="true">05</span>
+      <span class="edition-index__num" aria-hidden="true">06</span>
       <span class="edition-index__name">Maroon</span>
     </a>
     <a href="#cover" class="edition-index__link" data-edition="blue" id="editionLinkBlue">
-      <span class="edition-index__num" aria-hidden="true">06</span>
+      <span class="edition-index__num" aria-hidden="true">07</span>
       <span class="edition-index__name">Blue</span>
     </a>
   </nav>
@@ -50,7 +54,163 @@
   </button>
 
   <main id="main">
-    <div class="p-edition" id="p-edition">
+    <div class="pw-edition" id="pw-edition" data-atmosphere="dust">
+      <div class="pw-petal-track" aria-hidden="true"><span class="pw-petal" id="pwPetal"></span></div>
+
+      <header class="pw-cover" id="pw-cover">
+        <div class="pw-bloom" aria-hidden="true"></div>
+        <div class="pw-cover__masthead">
+          <h2 class="pw-cover__word">Periwinkle</h2>
+          <p class="pw-cover__meta">Edition 112</p>
+        </div>
+        <p class="pw-text pw-text--first">Some letters arrive<br />exactly when we are ready<br />to read them.</p>
+      </header>
+
+      <section class="pw-hero" id="pw-hero" aria-label="Periwinkle Edition, hero">
+        <figure class="pw-hero__figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/images/web/periwinkle-hero-envelope-small.webp 720w, assets/images/web/periwinkle-hero-envelope-large.webp 1448w"
+              sizes="100vw"
+            />
+            <img
+              class="pw-hero__image"
+              src="assets/images/web/periwinkle-hero-envelope-large.jpg"
+              srcset="assets/images/web/periwinkle-hero-envelope-small.jpg 720w, assets/images/web/periwinkle-hero-envelope-large.jpg 1448w"
+              sizes="100vw"
+              width="1448"
+              height="1086"
+              alt="A hand holding a pen writes on paper resting against a blue envelope, beside a vase of dried lavender flowers and a cup of coffee, in soft morning light."
+              loading="eager"
+              fetchpriority="high"
+            />
+          </picture>
+        </figure>
+      </section>
+
+      <section class="pw-poem" id="pw-poem" aria-label="Periwinkle Edition, the poem">
+        <p class="pw-poem__title">Periwinkle<br />Edition 112</p>
+        <p class="pw-poem__stanza">Periwinkle arrived<br />without urgency.</p>
+        <p class="pw-poem__stanza">A quiet envelope<br />resting where hurried hands<br />had overlooked it<br />for weeks.</p>
+        <p class="pw-poem__stanza">When I finally<br />broke its seal,</p>
+        <p class="pw-poem__stanza">there was no apology inside.</p>
+        <p class="pw-poem__stanza">Only a note,<br />written in the language<br />my body<br />had always known.</p>
+        <p class="pw-poem__stanza">Slow down.</p>
+        <p class="pw-poem__stanza">Not because<br />you are broken.</p>
+        <p class="pw-poem__stanza">Not because<br />you have failed.</p>
+        <p class="pw-poem__stanza">Because even wonder<br />needs somewhere<br />to rest.</p>
+        <p class="pw-poem__stanza">For three days,</p>
+        <p class="pw-poem__stanza">the world<br />continued perfectly<br />without me.</p>
+        <p class="pw-poem__stanza">Morning still arrived.</p>
+        <p class="pw-poem__stanza">Messages still waited.</p>
+        <p class="pw-poem__stanza">The sky<br />never noticed<br />my absence.</p>
+        <p class="pw-poem__stanza">And somehow,</p>
+        <p class="pw-poem__stanza">that wasn&rsquo;t frightening.</p>
+        <p class="pw-poem__stanza">It was freeing.</p>
+        <p class="pw-poem__stanza">Healing,<br />I discovered,</p>
+        <p class="pw-poem__stanza">asks for almost nothing.</p>
+        <p class="pw-poem__stanza">Only permission.</p>
+        <p class="pw-poem__stanza">I folded<br />the letter closed.</p>
+        <p class="pw-poem__stanza">Nothing outside<br />had changed.</p>
+        <p class="pw-poem__stanza">The room.</p>
+        <p class="pw-poem__stanza">The light.</p>
+        <p class="pw-poem__stanza">The unfinished things.</p>
+        <p class="pw-poem__stanza">Except&hellip;</p>
+        <p class="pw-poem__stanza">the silence<br />finally had my attention.</p>
+      </section>
+
+      <section class="pw-gallery" id="pw-gallery" aria-label="Periwinkle Edition, photography sequence">
+        <figure class="pw-gallery__figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/images/web/periwinkle-letter-reveal-small.webp 720w, assets/images/web/periwinkle-letter-reveal-large.webp 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+            />
+            <img
+              src="assets/images/web/periwinkle-letter-reveal-large.jpg"
+              srcset="assets/images/web/periwinkle-letter-reveal-small.jpg 720w, assets/images/web/periwinkle-letter-reveal-large.jpg 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+              width="1086"
+              height="1448"
+              alt="An open letter with a wavy lavender and cream pattern lies against a purple blanket, held by a hand, with handwritten-style text visible on the page."
+              loading="lazy"
+            />
+          </picture>
+        </figure>
+        <figure class="pw-gallery__figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/images/web/periwinkle-envelopes-table-small.webp 720w, assets/images/web/periwinkle-envelopes-table-large.webp 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+            />
+            <img
+              src="assets/images/web/periwinkle-envelopes-table-large.jpg"
+              srcset="assets/images/web/periwinkle-envelopes-table-small.jpg 720w, assets/images/web/periwinkle-envelopes-table-large.jpg 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+              width="1086"
+              height="1448"
+              alt="Blue and lavender envelopes rest on a table beside a fountain pen, a ribbon, and a vase of dried lavender flowers, in warm sunlight."
+              loading="lazy"
+            />
+          </picture>
+        </figure>
+        <figure class="pw-gallery__figure">
+          <picture>
+            <source
+              type="image/webp"
+              srcset="assets/images/web/periwinkle-desk-laptop-small.webp 720w, assets/images/web/periwinkle-desk-laptop-large.webp 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+            />
+            <img
+              src="assets/images/web/periwinkle-desk-laptop-large.jpg"
+              srcset="assets/images/web/periwinkle-desk-laptop-small.jpg 720w, assets/images/web/periwinkle-desk-laptop-large.jpg 1086w"
+              sizes="(max-width: 640px) 84vw, 46vw"
+              width="1086"
+              height="1448"
+              alt="A closed laptop and a blue envelope rest on a table beside a pen, a cup, and a vase of dried flowers, with a bed and armchair visible in the background."
+              loading="lazy"
+            />
+          </picture>
+        </figure>
+      </section>
+
+      <section class="pw-truth" id="pw-truth" aria-label="Periwinkle Edition, a note on truth">
+        <h3 class="pw-truth__heading">A Note on Truth</h3>
+        <p class="pw-truth__stanza">Every photograph in this edition began as a real moment.</p>
+        <p class="pw-truth__stanza">The room was real.</p>
+        <p class="pw-truth__stanza">The morning light was real.</p>
+        <p class="pw-truth__stanza">The envelope, the pen, the flowers, the quiet&hellip;</p>
+        <p class="pw-truth__stanza">Every one of them existed.</p>
+        <p class="pw-truth__stanza">What follows is not an attempt to replace reality.</p>
+        <p class="pw-truth__stanza">It is an attempt to remember it.</p>
+        <p class="pw-truth__stanza">These images have been gently translated through Artificial Intelligence, not to make them more beautiful, but to bring them closer to how the moment felt.</p>
+        <p class="pw-truth__stanza">Softened by relief.</p>
+        <p class="pw-truth__stanza">Coloured by hope.</p>
+        <p class="pw-truth__stanza">Wrapped in the quiet that only healing understands.</p>
+        <p class="pw-truth__stanza">Nothing here was invented.</p>
+        <p class="pw-truth__stanza">Only the language changed.</p>
+        <p class="pw-truth__stanza">Because memory has never been a photograph.</p>
+        <p class="pw-truth__stanza">It has always been light,</p>
+        <p class="pw-truth__stanza">emotion,</p>
+        <p class="pw-truth__stanza">and the gentle way the heart chooses to keep a moment alive.</p>
+      </section>
+
+      <footer class="pw-ending" id="pw-ending" aria-label="Periwinkle Edition, ending">
+        <p class="pw-ending__word">Edition 112</p>
+        <p class="pw-ending__word pw-ending__word--main">Periwinkle</p>
+      </footer>
+
+      <div class="pw-transition" id="pw-transition" aria-hidden="true">
+        <span class="pw-transition__letter pw-transition__letter--pw">P</span>
+        <span class="pw-transition__rule"></span>
+        <span class="pw-transition__letter pw-transition__letter--p">P</span>
+      </div>
+    </div>
+
+    <div class="p-edition" id="p-edition" data-atmosphere="sparkle">
       <div class="p-light-track" aria-hidden="true"><span class="p-light" id="pLight"></span></div>
 
       <header class="p-cover" id="p-cover">
@@ -106,7 +266,7 @@
       </div>
     </div>
 
-    <div class="o-edition" id="o-edition">
+    <div class="o-edition" id="o-edition" data-atmosphere="ember">
       <header class="o-cover" id="o-cover">
         <h2 class="visually-hidden">Onyx Edition / Volume 112</h2>
         <div class="o-cover__image">
@@ -207,7 +367,7 @@
       </div>
     </div>
 
-    <div class="s-edition" id="s-edition">
+    <div class="s-edition" id="s-edition" data-atmosphere="dust-light">
       <header class="s-cover" id="s-cover">
         <div class="s-cover__image">
           <picture>
@@ -399,7 +559,7 @@
       </div>
     </div>
 
-    <div class="e-edition" id="e-edition">
+    <div class="e-edition" id="e-edition" data-atmosphere="botanical-shadow">
       <div class="e-line-track" aria-hidden="true"><span class="e-line"></span></div>
 
       <header class="e-cover" id="e-cover">
@@ -661,6 +821,7 @@
       </div>
     </div>
 
+    <div class="m-edition" id="m-edition" data-atmosphere="texture">
     <header class="m-cover" id="m-cover">
       <div class="m-cover__image">
         <picture>
@@ -899,6 +1060,7 @@
       <span class="m-transition__rule"></span>
       <span class="m-transition__letter m-transition__letter--b">B</span>
     </div>
+    </div>
 
     <header class="cover" id="cover">
       <div class="cover__field" aria-hidden="true"></div>
@@ -1032,7 +1194,7 @@
   </main>
 
   <footer class="colophon">
-    <p class="colophon__credit">Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 &mdash; Dragan Andric</p>
+    <p class="colophon__credit">Periwinkle, Pink, Onyx, Saffron, Emerald, Maroon &amp; Blue / Volume 112 &mdash; Dragan Andric</p>
     <p class="colophon__year">&copy; <span id="year">2026</span></p>
   </footer>
 

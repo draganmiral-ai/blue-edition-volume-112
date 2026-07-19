@@ -78,6 +78,15 @@
   --p-gold: #c9a15a;
   --p-ink: #3a2430;
 
+  /* Periwinkle Edition — palette composed by eye from its own photographs, isolated from the palettes above */
+  --pw-ivory: #f3ede6;
+  --pw-cream: #ede2d3;
+  --pw-periwinkle: #8b8fc4;
+  --pw-lavender: #c3b6d6;
+  --pw-blush: #ecd9d9;
+  --pw-indigo: #4a4470;
+  --pw-charcoal: #3a3540;
+
   --font-serif: 'Iowan Old Style', 'Palatino Linotype', 'URW Palladio', Palatino,
     Georgia, 'Times New Roman', serif;
   --m-font-serif: 'Didot', 'Bodoni MT', 'Bodoni 72', Georgia, 'Times New Roman', serif;
@@ -291,7 +300,8 @@ button:focus-visible {
   .m-cover__word,
   .e-cover__word,
   .s-cover__word,
-  .p-cover__word {
+  .p-cover__word,
+  .pw-cover__word {
     animation: none;
     opacity: 1;
     filter: none;
@@ -601,7 +611,10 @@ button:focus-visible {
   .e-sequence,
   .s-poem,
   .o-aperture,
-  .p-section {
+  .p-section,
+  .pw-poem,
+  .pw-gallery,
+  .pw-truth {
     padding-left: clamp(1.25rem, 10vw, 8rem);
     padding-right: clamp(1.25rem, 10vw, 8rem);
   }
@@ -815,7 +828,16 @@ button:focus-visible {
 .js-reveal-armed .o-transition,
 .js-reveal-armed .p-text,
 .js-reveal-armed .p-statement,
-.js-reveal-armed .p-transition {
+.js-reveal-armed .p-transition,
+.js-reveal-armed .pw-text,
+.js-reveal-armed .pw-poem__title,
+.js-reveal-armed .pw-poem__stanza,
+.js-reveal-armed .pw-truth__heading,
+.js-reveal-armed .pw-truth__stanza,
+.js-reveal-armed .pw-gallery__figure,
+.js-reveal-armed .pw-hero__figure,
+.js-reveal-armed .pw-ending__word,
+.js-reveal-armed .pw-transition {
   opacity: 0;
   transform: translateY(22px);
   transition: opacity 900ms var(--ease-editorial), transform 900ms var(--ease-editorial);
@@ -825,7 +847,8 @@ button:focus-visible {
 .js-reveal-armed .e-transition,
 .js-reveal-armed .s-transition,
 .js-reveal-armed .o-transition,
-.js-reveal-armed .p-transition {
+.js-reveal-armed .p-transition,
+.js-reveal-armed .pw-transition {
   transform: none;
 }
 
@@ -846,7 +869,16 @@ button:focus-visible {
 .js-reveal-armed .o-transition.is-revealed,
 .js-reveal-armed .p-text.is-revealed,
 .js-reveal-armed .p-statement.is-revealed,
-.js-reveal-armed .p-transition.is-revealed {
+.js-reveal-armed .p-transition.is-revealed,
+.js-reveal-armed .pw-text.is-revealed,
+.js-reveal-armed .pw-poem__title.is-revealed,
+.js-reveal-armed .pw-poem__stanza.is-revealed,
+.js-reveal-armed .pw-truth__heading.is-revealed,
+.js-reveal-armed .pw-truth__stanza.is-revealed,
+.js-reveal-armed .pw-gallery__figure.is-revealed,
+.js-reveal-armed .pw-hero__figure.is-revealed,
+.js-reveal-armed .pw-ending__word.is-revealed,
+.js-reveal-armed .pw-transition.is-revealed {
   opacity: 1;
   transform: translateY(0);
 }
@@ -2518,5 +2550,527 @@ button:focus-visible {
 @media (max-width: 640px) {
   .p-transition {
     height: clamp(26vh, 38vh, 42vh);
+  }
+}
+
+/* Structural wrappers added for the Atmosphere System (see below) — purely
+   positioning contexts, no visual change to Maroon's existing design. */
+.m-edition {
+  position: relative;
+}
+
+/* =====================================================================
+   PERIWINKLE EDITION / VOLUME 112 — the newest chapter, isolated from
+   every palette above via the pw- prefix.
+   ===================================================================== */
+
+.pw-edition {
+  position: relative;
+  background: var(--pw-ivory);
+}
+
+/* ---------- shared reflective text ---------- */
+
+.pw-text {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.8vw, 1.25rem);
+  line-height: 1.7;
+  color: var(--pw-charcoal);
+  max-width: 26ch;
+}
+
+.pw-text--first {
+  font-style: italic;
+  color: var(--pw-periwinkle);
+}
+
+/* ---------- Section 1 — the almost colourless opening ---------- */
+
+.pw-cover {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(2.5rem, 8vh, 4.5rem);
+  background: var(--pw-ivory);
+  overflow: hidden;
+  padding: clamp(2rem, 6vh, 4rem) 1.5rem;
+  text-align: center;
+}
+
+.pw-bloom {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  width: 36vw;
+  height: 36vw;
+  max-width: 420px;
+  max-height: 420px;
+  top: 8%;
+  right: -10%;
+  border-radius: 50%;
+  filter: blur(50px);
+  opacity: 0.4;
+  background: radial-gradient(circle, var(--pw-lavender) 0%, transparent 70%);
+}
+
+.pw-cover__masthead {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.pw-cover__word {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: clamp(1.9rem, 5vw, 3.1rem);
+  letter-spacing: 0.05em;
+  color: var(--pw-charcoal);
+  opacity: 0;
+  filter: blur(6px);
+  animation: reveal-word var(--dur-slow) var(--ease-editorial) 200ms forwards;
+}
+
+.pw-cover__meta {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: clamp(0.68rem, 1.3vw, 0.85rem);
+  letter-spacing: 0.36em;
+  text-transform: uppercase;
+  color: var(--pw-periwinkle);
+}
+
+/* ---------- Section 2 — the hero ---------- */
+
+.pw-hero {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pw-ivory);
+  padding: clamp(2rem, 6vh, 4rem) clamp(1rem, 5vw, 3rem);
+}
+
+.pw-hero__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pw-hero__image {
+  max-width: 100%;
+  height: auto;
+  max-height: 84vh;
+  width: auto;
+  object-fit: contain;
+}
+
+.js-reveal-armed .pw-hero__figure .pw-hero__image {
+  filter: brightness(0.97);
+  transition: filter 1.6s var(--ease-editorial);
+}
+
+.js-reveal-armed .pw-hero__figure.is-revealed .pw-hero__image {
+  filter: brightness(1.02);
+}
+
+/* ---------- Section 3 — the complete poem ---------- */
+
+.pw-poem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2.5rem, 6vh, 4rem);
+  background: var(--pw-cream);
+  padding: clamp(6rem, 14vh, 10rem) 1.5rem;
+}
+
+.pw-poem__title {
+  margin: 0 0 clamp(1rem, 4vh, 2rem);
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.3rem, 3vw, 1.8rem);
+  line-height: 1.4;
+  color: var(--pw-periwinkle);
+}
+
+.pw-poem__stanza {
+  margin: 0;
+  text-align: center;
+  max-width: 30ch;
+  font-family: var(--font-serif);
+  font-size: clamp(1.05rem, 2vw, 1.35rem);
+  line-height: 1.75;
+  color: var(--pw-charcoal);
+}
+
+@media (max-width: 640px) {
+  .pw-poem {
+    padding-top: clamp(4rem, 10vh, 6rem);
+    padding-bottom: clamp(4rem, 10vh, 6rem);
+    gap: clamp(1.75rem, 5vh, 3rem);
+  }
+}
+
+/* ---------- Section 4 — photography sequence, exhibition-style ---------- */
+
+.pw-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(6rem, 16vh, 10rem);
+  background: var(--pw-ivory);
+  padding: clamp(5rem, 14vh, 9rem) clamp(1.25rem, 6vw, 4rem);
+}
+
+.pw-gallery__figure {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.pw-gallery__figure img {
+  max-width: 100%;
+  height: auto;
+  max-height: 82vh;
+  width: auto;
+  object-fit: contain;
+  box-shadow: 0 2rem 6rem -2rem rgba(58, 53, 64, 0.25);
+}
+
+@media (max-width: 640px) {
+  .pw-gallery {
+    gap: clamp(3rem, 10vh, 5rem);
+  }
+  .pw-gallery__figure img {
+    max-height: 66vh;
+  }
+}
+
+/* ---------- Section 5 — a note on truth : a revelation, not a disclaimer ---------- */
+
+.pw-truth {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(2rem, 5vh, 3.5rem);
+  background: var(--pw-indigo);
+  padding: clamp(6rem, 16vh, 10rem) 1.5rem;
+}
+
+.pw-truth__heading {
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(1.4rem, 3.2vw, 2rem);
+  color: var(--pw-blush);
+}
+
+.pw-truth__stanza {
+  margin: 0;
+  text-align: center;
+  max-width: 34ch;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 1.9vw, 1.3rem);
+  line-height: 1.8;
+  color: var(--pw-ivory);
+  opacity: 0.92;
+}
+
+/* ---------- Section 6 — the ending ---------- */
+
+.pw-ending {
+  min-height: 70svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background: var(--pw-ivory);
+  padding: clamp(3rem, 10vh, 6rem) 1.5rem;
+  text-align: center;
+}
+
+.pw-ending__word {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--pw-periwinkle);
+}
+
+.pw-ending__word--main {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  letter-spacing: 0.04em;
+  text-transform: none;
+  color: var(--pw-charcoal);
+}
+
+/* ---- Periwinkle → Pink transition : colour handover, no copy ---- */
+
+.pw-transition {
+  position: relative;
+  height: clamp(30vh, 42vh, 50vh);
+  overflow: hidden;
+  background: linear-gradient(
+    to bottom,
+    var(--pw-ivory) 0%,
+    var(--pw-lavender) 30%,
+    var(--pw-periwinkle) 55%,
+    var(--p-blush) 80%,
+    var(--p-pearl) 100%
+  );
+}
+
+.pw-transition__letter {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  line-height: 1;
+  font-size: clamp(6rem, 22vw, 14rem);
+  opacity: 0.12;
+  user-select: none;
+  font-family: var(--font-serif);
+}
+
+.pw-transition__letter--pw {
+  top: 3%;
+  color: var(--pw-indigo);
+}
+
+.pw-transition__letter--p {
+  bottom: 3%;
+  color: var(--p-raspberry);
+}
+
+.pw-transition__rule {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(58%, 420px);
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--pw-periwinkle) 18%,
+    var(--p-hot-pink) 82%,
+    transparent
+  );
+  opacity: 0.45;
+}
+
+@media (max-width: 640px) {
+  .pw-transition {
+    height: clamp(24vh, 34vh, 38vh);
+  }
+}
+
+/* ---------- Periwinkle's single drifting petal (see Atmosphere System) ---------- */
+
+.pw-petal-track {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  margin-bottom: -100svh;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.pw-petal {
+  position: absolute;
+  width: 14px;
+  height: 10px;
+  background: var(--pw-lavender);
+  border-radius: 60% 40% 60% 40% / 70% 60% 40% 30%;
+  opacity: 0;
+  left: -5%;
+  top: 20%;
+  transform: rotate(0deg);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pw-petal.is-drifting {
+    animation: pw-petal-drift 9s var(--ease-editorial) forwards;
+  }
+}
+
+@keyframes pw-petal-drift {
+  0% {
+    opacity: 0;
+    left: -5%;
+    top: 20%;
+    transform: rotate(0deg);
+  }
+  10% {
+    opacity: 0.85;
+  }
+  90% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 0;
+    left: 105%;
+    top: 55%;
+    transform: rotate(340deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pw-petal-track {
+    display: none;
+  }
+}
+
+/* =====================================================================
+   ATMOSPHERE SYSTEM — a shared, config-driven, extremely subtle particle
+   layer any edition can opt into via a `data-atmosphere` attribute on its
+   wrapper. Implemented in assets/js/main.js (see initAtmosphere). Never
+   affects layout (absolutely positioned, pointer-events: none), and is
+   removed entirely under prefers-reduced-motion.
+   ===================================================================== */
+
+.atmosphere-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 3;
+}
+
+.atmosphere-particle {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+  animation: atmosphere-float var(--particle-duration, 14s) linear infinite;
+  animation-delay: var(--particle-delay, 0s);
+}
+
+@keyframes atmosphere-float {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  12% {
+    opacity: var(--particle-peak-opacity, 0.5);
+  }
+  85% {
+    opacity: var(--particle-peak-opacity, 0.5);
+  }
+  100% {
+    transform: translate(var(--drift-x, 0px), var(--drift-y, -60px));
+    opacity: 0;
+  }
+}
+
+.atmosphere-texture {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.5;
+  background: repeating-linear-gradient(
+    115deg,
+    rgba(168, 130, 58, 0.05) 0px,
+    rgba(168, 130, 58, 0.05) 2px,
+    transparent 2px,
+    transparent 40px
+  );
+  background-size: 200% 200%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .atmosphere-texture {
+    animation: atmosphere-texture-drift 60s linear infinite;
+  }
+}
+
+@keyframes atmosphere-texture-drift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-layer {
+    display: none;
+  }
+}
+
+/* ---------- ambient audio toggle ---------- */
+/* Hidden until the visitor's first interaction, and even then only ever
+   reflects an explicit on/off choice the visitor made — see the
+   AUDIO_CONFIG gate in main.js, which never inserts this control at all
+   unless an edition has a real track configured. */
+
+.ambient-audio-toggle {
+  position: fixed;
+  left: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 60;
+  width: 2.75rem;
+  height: 2.75rem;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(236, 231, 222, 0.25);
+  background: rgba(11, 12, 14, 0.55);
+  backdrop-filter: blur(6px);
+  color: var(--ivory);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(6px);
+  transition: opacity var(--dur-medium) var(--ease-editorial),
+    transform var(--dur-medium) var(--ease-editorial);
+}
+
+.ambient-audio-toggle.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.ambient-audio-toggle:hover {
+  border-color: var(--cobalt-bright);
+}
+
+.ambient-audio-toggle__icon {
+  display: block;
+  width: 0.75rem;
+  height: 0.75rem;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: 1.5px solid currentColor;
+  opacity: 0.7;
+}
+
+.ambient-audio-toggle.is-on .ambient-audio-toggle__icon {
+  background: currentColor;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-audio-toggle {
+    transition: opacity 1ms linear;
   }
 }
