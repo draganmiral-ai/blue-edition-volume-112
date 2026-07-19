@@ -596,13 +596,13 @@
   // `src`, nothing else in this file needs to change.
   // ---------------------------------------------------------------------
   var AUDIO_CONFIG = {
-    periwinkle: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    pink: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    onyx: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    saffron: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    emerald: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    maroon: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false },
-    blue: { src: null, volume: 0.3, loop: true, fadeMs: 1500, enabled: false }
+    periwinkle: { src: 'assets/audio/periwinkle.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    pink: { src: 'assets/audio/pink.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    onyx: { src: 'assets/audio/onyx.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    saffron: { src: 'assets/audio/saffron.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    emerald: { src: 'assets/audio/onyx.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    maroon: { src: 'assets/audio/onyx.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true },
+    blue: { src: 'assets/audio/onyx.mp3', volume: 0.3, loop: true, fadeMs: 1500, enabled: true }
   };
 
   function initAmbientAudio() {

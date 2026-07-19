@@ -243,12 +243,18 @@ they explicitly turn it on, and cross-fades between edition tracks as the
 visitor scrolls (reusing the same active-edition tracking that drives the
 edition index highlighting).
 
-**Current status:** no audio track has been supplied for any edition in
-this repository, so every `AUDIO_CONFIG` entry has `enabled: false` and the
-toggle is dormant site-wide — this is a genuine, disclosed limitation, not
-a placeholder pretending to work. To add ambience to an edition, drop an
-audio file under `assets/audio/`, set that edition's `src` to its path, and
-flip `enabled: true`; nothing else in the system needs to change.
+**Current status:** active. Four tracks live in `assets/audio/` — Periwinkle,
+Pink, Onyx, and Saffron each have their own; Emerald, Maroon, and Blue reuse
+the Onyx track (no dedicated track was supplied for those three). Because
+`applyEdition()` only reloads the `<audio>` element when the incoming
+edition's `src` differs from what's currently loaded, scrolling between
+editions that share a track (Onyx → Emerald → Maroon → Blue) never
+restarts or refades it — it just keeps playing continuously, exactly as if
+it were one track for those four. Scrolling into an edition with its own
+distinct track (Periwinkle, Pink, Saffron) cross-fades to it as designed.
+To add a dedicated track for Emerald, Maroon, or Blue later, drop a new
+file under `assets/audio/` and update that edition's `src` in
+`AUDIO_CONFIG`; nothing else needs to change.
 
 ## Technology
 
